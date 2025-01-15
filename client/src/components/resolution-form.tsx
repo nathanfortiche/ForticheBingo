@@ -26,7 +26,7 @@ const formSchema = z.object({
   resolutions: z.array(
     z.object({
       id: z.string(),
-      text: z.string().min(1, "Ce champ est requis").max(50, "50 caractères maximum"),
+      text: z.string().max(50, "50 caractères maximum"),
     })
   ).min(9, "Minimum 9 résolutions requises"),
   gridSize: z.enum(["3x3", "4x4"]),
@@ -50,27 +50,38 @@ export default function ResolutionForm({ onSubmit }: Props) {
   const gridSize = form.watch("gridSize");
   const minResolutions = gridSize === "3x3" ? 9 : 16;
 
-  const addResolution = () => {
-    const currentResolutions = form.getValues("resolutions");
-    form.setValue("resolutions", [
-      ...currentResolutions,
-      { id: nanoid(), text: "" },
-    ]);
+  const handleFormSubmit = (data: FormData) => {
+    // Replace empty resolutions with "Case gratuite"
+    const filledResolutions = {
+      ...data,
+      resolutions: data.resolutions.map(resolution => ({
+        ...resolution,
+        text: resolution.text.trim() === "" ? "Case gratuite" : resolution.text
+      }))
+    };
+    onSubmit(filledResolutions);
   };
 
-  const removeResolution = (index: number) => {
+  // Update form when grid size changes
+  const handleGridSizeChange = (newSize: "3x3" | "4x4") => {
+    const requiredCount = newSize === "3x3" ? 9 : 16;
     const currentResolutions = form.getValues("resolutions");
-    form.setValue(
-      "resolutions",
-      currentResolutions.filter((_, i) => i !== index)
-    );
+
+    const newResolutions = Array(requiredCount)
+      .fill(0)
+      .map((_, index) => {
+        return currentResolutions[index] || { id: nanoid(), text: "" };
+      });
+
+    form.setValue("gridSize", newSize);
+    form.setValue("resolutions", newResolutions);
   };
 
   return (
     <Card className="max-w-2xl mx-auto border-0 shadow-lg">
       <CardContent className="pt-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="gridSize"
@@ -78,7 +89,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
                 <FormItem>
                   <FormLabel className="text-gray-700">Format de la grille</FormLabel>
                   <Select
-                    onValueChange={field.onChange}
+                    onValueChange={(value) => handleGridSizeChange(value as "3x3" | "4x4")}
                     defaultValue={field.value}
                   >
                     <FormControl>
@@ -87,8 +98,8 @@ export default function ResolutionForm({ onSubmit }: Props) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="3x3">3 × 3</SelectItem>
-                      <SelectItem value="4x4">4 × 4</SelectItem>
+                      <SelectItem value="3x3">3 × 3 (9 résolutions)</SelectItem>
+                      <SelectItem value="4x4">4 × 4 (16 résolutions)</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormItem>
@@ -105,24 +116,11 @@ export default function ResolutionForm({ onSubmit }: Props) {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <div className="flex gap-2">
-                          <Input
-                            placeholder={`Résolution ${index + 1}`}
-                            {...field}
-                            className="bg-white"
-                          />
-                          {form.getValues("resolutions").length > minResolutions && (
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="icon"
-                              onClick={() => removeResolution(index)}
-                              className="text-gray-400 hover:text-gray-600"
-                            >
-                              ×
-                            </Button>
-                          )}
-                        </div>
+                        <Input
+                          placeholder={`Résolution ${index + 1}`}
+                          {...field}
+                          className="bg-white"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -130,15 +128,6 @@ export default function ResolutionForm({ onSubmit }: Props) {
                 />
               ))}
             </div>
-
-            <Button
-              type="button"
-              variant="outline"
-              onClick={addResolution}
-              className="w-full bg-white hover:bg-gray-50"
-            >
-              Ajouter une résolution
-            </Button>
 
             <Button
               type="submit"

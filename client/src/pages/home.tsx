@@ -51,10 +51,10 @@ export default function Home() {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12 space-y-4">
           <h1 className="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
-            Créez votre bingo
+            Créez votre bingo des résolutions
           </h1>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
-            Transformez vos résolutions du Nouvel An en une expérience interactive
+            Transformez vos résolutions du Nouvel An en un Bingo
           </p>
         </div>
 
