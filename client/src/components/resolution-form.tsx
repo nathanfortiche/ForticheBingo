@@ -29,7 +29,7 @@ const formSchema = z.object({
       text: z.string().max(50, "50 caractères maximum"),
     })
   ).min(9, "Minimum 9 résolutions requises"),
-  gridSize: z.enum(["3x3", "4x4"]),
+  gridSize: z.enum(["3x3", "3x4", "4x4"]),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -48,7 +48,15 @@ export default function ResolutionForm({ onSubmit }: Props) {
   });
 
   const gridSize = form.watch("gridSize");
-  const minResolutions = gridSize === "3x3" ? 9 : 16;
+  const getMinResolutions = (size: string) => {
+    switch (size) {
+      case "3x3": return 9;
+      case "3x4": return 12;
+      case "4x4": return 16;
+      default: return 9;
+    }
+  };
+  const minResolutions = getMinResolutions(gridSize);
 
   const handleFormSubmit = (data: FormData) => {
     // Replace empty resolutions with "Case gratuite"
@@ -63,8 +71,8 @@ export default function ResolutionForm({ onSubmit }: Props) {
   };
 
   // Update form when grid size changes
-  const handleGridSizeChange = (newSize: "3x3" | "4x4") => {
-    const requiredCount = newSize === "3x3" ? 9 : 16;
+  const handleGridSizeChange = (newSize: GridSize) => {
+    const requiredCount = getMinResolutions(newSize);
     const currentResolutions = form.getValues("resolutions");
 
     const newResolutions = Array(requiredCount)
@@ -89,7 +97,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
                 <FormItem>
                   <FormLabel className="text-gray-700">Format de la grille</FormLabel>
                   <Select
-                    onValueChange={(value) => handleGridSizeChange(value as "3x3" | "4x4")}
+                    onValueChange={(value) => handleGridSizeChange(value as GridSize)}
                     defaultValue={field.value}
                   >
                     <FormControl>
@@ -99,6 +107,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="3x3">3 × 3 (9 résolutions)</SelectItem>
+                      <SelectItem value="3x4">3 × 4 (12 résolutions)</SelectItem>
                       <SelectItem value="4x4">4 × 4 (16 résolutions)</SelectItem>
                     </SelectContent>
                   </Select>

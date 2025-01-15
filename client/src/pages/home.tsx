@@ -10,7 +10,7 @@ export type Resolution = {
   text: string;
 };
 
-export type GridSize = "3x3" | "4x4";
+export type GridSize = "3x3" | "3x4" | "4x4";
 
 export default function Home() {
   const [resolutions, setResolutions] = useState<Resolution[]>([]);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Resolution, GridSize } from "@/pages/home";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
@@ -27,8 +27,17 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
     setShuffledResolutions(shuffleArray(resolutions));
   }, [resolutions]);
 
-  const gridSizeNum = gridSize === "3x3" ? 3 : 4;
-  const cellCount = gridSizeNum * gridSizeNum;
+  const getGridDimensions = (size: GridSize) => {
+    switch (size) {
+      case "3x3": return { rows: 3, cols: 3 };
+      case "3x4": return { rows: 3, cols: 4 };
+      case "4x4": return { rows: 4, cols: 4 };
+      default: return { rows: 3, cols: 3 };
+    }
+  };
+
+  const { rows, cols } = getGridDimensions(gridSize);
+  const cellCount = rows * cols;
 
   const toggleCell = (id: string) => {
     const newCheckedCells = new Set(checkedCells);
@@ -79,7 +88,8 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
       <div
         className={`grid gap-3`}
         style={{
-          gridTemplateColumns: `repeat(${gridSizeNum}, 1fr)`,
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gridTemplateRows: `repeat(${rows}, 1fr)`,
         }}
       >
         {shuffledResolutions.slice(0, cellCount).map((resolution, index) => (
