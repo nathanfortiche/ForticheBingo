@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Resolution, GridSize } from "@/pages/home";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Share2, Twitter } from "lucide-react";
 
 type Props = {
   resolutions: Resolution[];
@@ -19,6 +21,7 @@ function shuffleArray<T>(array: T[]): T[] {
 
 export default function BingoCard({ resolutions, gridSize }: Props) {
   const [shuffledResolutions, setShuffledResolutions] = useState<Resolution[]>([]);
+  const [checkedCells, setCheckedCells] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
@@ -26,6 +29,40 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
 
   const gridSizeNum = gridSize === "3x3" ? 3 : 4;
   const cellCount = gridSizeNum * gridSizeNum;
+
+  const toggleCell = (id: string) => {
+    const newCheckedCells = new Set(checkedCells);
+    if (newCheckedCells.has(id)) {
+      newCheckedCells.delete(id);
+    } else {
+      newCheckedCells.add(id);
+    }
+    setCheckedCells(newCheckedCells);
+  };
+
+  const handleShare = (platform: 'twitter' | 'general') => {
+    const completedCount = checkedCells.size;
+    const totalCount = shuffledResolutions.length;
+    const percentage = Math.round((completedCount / totalCount) * 100);
+
+    const text = `J'ai accompli ${completedCount}/${totalCount} (${percentage}%) de mes résolutions pour 2024! 🎯`;
+    const url = window.location.href;
+
+    if (platform === 'twitter') {
+      window.open(
+        `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+        '_blank'
+      );
+    } else {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Mon Bingo des Résolutions 2024',
+          text,
+          url,
+        }).catch(console.error);
+      }
+    }
+  };
 
   return (
     <div
@@ -57,7 +94,11 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
             }}
           >
             <Card 
-              className="p-4 min-h-[120px] flex items-center justify-center text-center hover:bg-gray-50/50 transition-colors duration-200 border-gray-100"
+              className={`p-4 min-h-[120px] flex items-center justify-center text-center transition-all duration-200 border-gray-100 cursor-pointer
+                ${checkedCells.has(resolution.id) 
+                  ? 'bg-gray-50 border-primary/50' 
+                  : 'hover:bg-gray-50/50'}`}
+              onClick={() => toggleCell(resolution.id)}
             >
               <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                 {resolution.text}
@@ -67,8 +108,33 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
         ))}
       </div>
 
-      <div className="text-center mt-8 text-sm text-gray-500">
-        Cochez les résolutions accomplies
+      <div className="text-center mt-8 space-y-4">
+        <p className="text-sm text-gray-500">
+          Cochez les résolutions accomplies
+        </p>
+
+        <div className="flex justify-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2"
+            onClick={() => handleShare('twitter')}
+          >
+            <Twitter className="w-4 h-4" />
+            Partager sur Twitter
+          </Button>
+          {navigator.share && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={() => handleShare('general')}
+            >
+              <Share2 className="w-4 h-4" />
+              Partager
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
