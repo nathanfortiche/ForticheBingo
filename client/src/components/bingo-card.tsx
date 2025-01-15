@@ -37,6 +37,7 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
   const [statusMap, setStatusMap] = useState<StatusMap>({});
   const [selectedResolution, setSelectedResolution] = useState<Resolution | null>(null);
   const [currentStatus, setCurrentStatus] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
@@ -72,6 +73,7 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
       }));
       setSelectedResolution(null);
       setCurrentStatus("");
+      setIsDialogOpen(false);
     }
   };
 
@@ -95,12 +97,20 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
         }}
       >
         {shuffledResolutions.slice(0, cellCount).map((resolution) => (
-          <Dialog key={resolution.id} onOpenChange={(open) => {
-            if (open) {
-              setSelectedResolution(resolution);
-              setCurrentStatus(statusMap[resolution.id] || "");
-            }
-          }}>
+          <Dialog 
+            key={resolution.id} 
+            open={isDialogOpen && selectedResolution?.id === resolution.id}
+            onOpenChange={(open) => {
+              setIsDialogOpen(open);
+              if (open) {
+                setSelectedResolution(resolution);
+                setCurrentStatus(statusMap[resolution.id] || "");
+              } else {
+                setSelectedResolution(null);
+                setCurrentStatus("");
+              }
+            }}
+          >
             <DialogTrigger asChild>
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
