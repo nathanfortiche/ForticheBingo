@@ -30,17 +30,17 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
   return (
     <div
       id="bingo-card"
-      className="bg-white/90 backdrop-blur rounded-xl shadow-lg p-8 max-w-3xl mx-auto"
+      className="bg-white rounded-xl shadow-xl p-8 max-w-3xl mx-auto"
     >
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-serif text-gray-800 mb-2">
-          Bingo des Résolutions 2024
+        <h2 className="text-3xl font-medium text-gray-900 tracking-tight mb-2">
+          Bingo 2024
         </h2>
-        <div className="h-px w-32 bg-gray-200 mx-auto" />
+        <div className="h-[2px] w-12 bg-primary mx-auto opacity-50" />
       </div>
 
       <div
-        className={`grid gap-4`}
+        className={`grid gap-3`}
         style={{
           gridTemplateColumns: `repeat(${gridSizeNum}, 1fr)`,
         }}
@@ -48,18 +48,18 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
         {shuffledResolutions.slice(0, cellCount).map((resolution, index) => (
           <motion.div
             key={resolution.id}
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
-              duration: 0.3,
-              delay: index * 0.05,
+              duration: 0.2,
+              delay: index * 0.03,
               ease: "easeOut",
             }}
           >
             <Card 
-              className="p-4 min-h-[120px] flex items-center justify-center text-center hover:shadow-md transition-shadow border-gray-100 bg-white/50"
+              className="p-4 min-h-[120px] flex items-center justify-center text-center hover:bg-gray-50/50 transition-colors duration-200 border-gray-100"
             >
-              <p className="font-serif text-sm md:text-base text-gray-700">
+              <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                 {resolution.text}
               </p>
             </Card>
@@ -67,8 +67,8 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
         ))}
       </div>
 
-      <div className="text-center mt-8 text-sm text-gray-500 font-light">
-        Cochez chaque résolution au fur et à mesure que vous les réalisez !
+      <div className="text-center mt-8 text-sm text-gray-500">
+        Cochez les résolutions accomplies
       </div>
     </div>
   );

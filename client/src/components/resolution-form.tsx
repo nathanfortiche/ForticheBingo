@@ -26,9 +26,9 @@ const formSchema = z.object({
   resolutions: z.array(
     z.object({
       id: z.string(),
-      text: z.string().min(1, "La résolution ne peut pas être vide").max(50, "La résolution est trop longue"),
+      text: z.string().min(1, "Ce champ est requis").max(50, "50 caractères maximum"),
     })
-  ).min(9, "Ajoutez au moins 9 résolutions"),
+  ).min(9, "Minimum 9 résolutions requises"),
   gridSize: z.enum(["3x3", "4x4"]),
 });
 
@@ -67,7 +67,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
   };
 
   return (
-    <Card className="max-w-2xl mx-auto bg-white/90 backdrop-blur">
+    <Card className="max-w-2xl mx-auto border-0 shadow-lg">
       <CardContent className="pt-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -76,19 +76,19 @@ export default function ResolutionForm({ onSubmit }: Props) {
               name="gridSize"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Taille de la Grille</FormLabel>
+                  <FormLabel className="text-gray-700">Format de la grille</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Sélectionnez la taille" />
+                      <SelectTrigger className="bg-white">
+                        <SelectValue placeholder="Choisir un format" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="3x3">3x3</SelectItem>
-                      <SelectItem value="4x4">4x4</SelectItem>
+                      <SelectItem value="3x3">3 × 3</SelectItem>
+                      <SelectItem value="4x4">4 × 4</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormItem>
@@ -96,7 +96,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
             />
 
             <div className="space-y-4">
-              <FormLabel>Vos Résolutions</FormLabel>
+              <FormLabel className="text-gray-700">Vos résolutions</FormLabel>
               {form.getValues("resolutions").map((_, index) => (
                 <FormField
                   key={form.getValues(`resolutions.${index}.id`)}
@@ -109,7 +109,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
                           <Input
                             placeholder={`Résolution ${index + 1}`}
                             {...field}
-                            className="font-serif"
+                            className="bg-white"
                           />
                           {form.getValues("resolutions").length > minResolutions && (
                             <Button
@@ -117,7 +117,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
                               variant="outline"
                               size="icon"
                               onClick={() => removeResolution(index)}
-                              className="text-gray-500"
+                              className="text-gray-400 hover:text-gray-600"
                             >
                               ×
                             </Button>
@@ -135,16 +135,16 @@ export default function ResolutionForm({ onSubmit }: Props) {
               type="button"
               variant="outline"
               onClick={addResolution}
-              className="w-full"
+              className="w-full bg-white hover:bg-gray-50"
             >
-              Ajouter une Résolution
+              Ajouter une résolution
             </Button>
 
             <Button
               type="submit"
-              className="w-full bg-gray-900 hover:bg-gray-800 text-white"
+              className="w-full bg-gray-900 hover:bg-gray-800"
             >
-              Générer la Carte de Bingo
+              Créer mon bingo
             </Button>
           </form>
         </Form>

@@ -29,34 +29,32 @@ export default function Home() {
       });
 
       const link = document.createElement("a");
-      link.download = "bingo-resolutions.png";
+      link.download = "bingo-2024.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
 
       toast({
-        title: "Succès !",
-        description: "Votre carte de bingo a été téléchargée.",
+        title: "Téléchargement réussi",
+        description: "Votre carte de bingo a été sauvegardée",
       });
     } catch (error) {
       toast({
         title: "Erreur",
-        description: "Échec de l'exportation. Veuillez réessayer.",
+        description: "Impossible d'exporter l'image. Réessayez.",
         variant: "destructive",
       });
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50">
-      <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif text-gray-800 mb-4">
-            Bingo des Résolutions
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12 space-y-4">
+          <h1 className="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
+            Créez votre bingo
           </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto font-light">
-            Créez votre carte de bingo personnalisée avec vos résolutions du Nouvel An.
-            Ajoutez vos objectifs, choisissez une taille de grille, et téléchargez votre
-            carte personnalisée !
+          <p className="text-gray-500 max-w-2xl mx-auto text-lg">
+            Transformez vos résolutions du Nouvel An en une expérience interactive
           </p>
         </div>
 
@@ -78,15 +76,15 @@ export default function Home() {
               <Button
                 variant="outline"
                 onClick={() => setShowPreview(false)}
-                className="text-gray-700"
+                className="text-gray-600"
               >
-                Modifier les Résolutions
+                Modifier
               </Button>
               <Button
                 onClick={handleExport}
-                className="bg-gray-900 hover:bg-gray-800 text-white"
+                className="bg-gray-900 hover:bg-gray-800"
               >
-                Télécharger la Carte
+                Télécharger
               </Button>
             </div>
           </div>
