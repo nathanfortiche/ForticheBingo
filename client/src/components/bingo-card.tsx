@@ -19,7 +19,7 @@ function shuffleArray<T>(array: T[]): T[] {
 
 export default function BingoCard({ resolutions, gridSize }: Props) {
   const [shuffledResolutions, setShuffledResolutions] = useState<Resolution[]>([]);
-  
+
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
   }, [resolutions]);
@@ -30,13 +30,13 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
   return (
     <div
       id="bingo-card"
-      className="bg-white rounded-xl shadow-lg p-6 max-w-3xl mx-auto"
+      className="bg-white/90 backdrop-blur rounded-xl shadow-lg p-8 max-w-3xl mx-auto"
     >
-      <div className="text-center mb-6">
-        <h2 className="text-3xl font-bold text-amber-500 mb-2">
-          2024 Resolution Bingo
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-serif text-gray-800 mb-2">
+          Bingo des Résolutions 2024
         </h2>
-        <div className="h-1 w-32 bg-gradient-to-r from-yellow-500 to-amber-500 mx-auto" />
+        <div className="h-px w-32 bg-gray-200 mx-auto" />
       </div>
 
       <div
@@ -56,8 +56,10 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
               ease: "easeOut",
             }}
           >
-            <Card className="p-4 min-h-[120px] flex items-center justify-center text-center hover:shadow-md transition-shadow border-2 border-amber-200">
-              <p className="font-['Segoe_Print',_cursive] text-sm md:text-base">
+            <Card 
+              className="p-4 min-h-[120px] flex items-center justify-center text-center hover:shadow-md transition-shadow border-gray-100 bg-white/50"
+            >
+              <p className="font-serif text-sm md:text-base text-gray-700">
                 {resolution.text}
               </p>
             </Card>
@@ -65,8 +67,8 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
         ))}
       </div>
 
-      <div className="text-center mt-6 text-sm text-muted-foreground">
-        Check off each resolution as you achieve it throughout the year!
+      <div className="text-center mt-8 text-sm text-gray-500 font-light">
+        Cochez chaque résolution au fur et à mesure que vous les réalisez !
       </div>
     </div>
   );

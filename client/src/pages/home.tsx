@@ -29,34 +29,34 @@ export default function Home() {
       });
 
       const link = document.createElement("a");
-      link.download = "new-year-bingo.png";
+      link.download = "bingo-resolutions.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
 
       toast({
-        title: "Success!",
-        description: "Your bingo card has been downloaded.",
+        title: "Succès !",
+        description: "Votre carte de bingo a été téléchargée.",
       });
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to export image. Please try again.",
+        title: "Erreur",
+        description: "Échec de l'exportation. Veuillez réessayer.",
         variant: "destructive",
       });
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-500 mb-4">
-            New Year's Resolution Bingo
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50">
+      <div className="container mx-auto px-4 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-serif text-gray-800 mb-4">
+            Bingo des Résolutions
           </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Create your personalized bingo card with your New Year's resolutions.
-            Fill in your goals, choose a grid size, and download your custom bingo
-            card!
+          <p className="text-gray-600 max-w-2xl mx-auto font-light">
+            Créez votre carte de bingo personnalisée avec vos résolutions du Nouvel An.
+            Ajoutez vos objectifs, choisissez une taille de grille, et téléchargez votre
+            carte personnalisée !
           </p>
         </div>
 
@@ -78,14 +78,15 @@ export default function Home() {
               <Button
                 variant="outline"
                 onClick={() => setShowPreview(false)}
+                className="text-gray-700"
               >
-                Edit Resolutions
+                Modifier les Résolutions
               </Button>
               <Button
                 onClick={handleExport}
-                className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white"
+                className="bg-gray-900 hover:bg-gray-800 text-white"
               >
-                Download Bingo Card
+                Télécharger la Carte
               </Button>
             </div>
           </div>

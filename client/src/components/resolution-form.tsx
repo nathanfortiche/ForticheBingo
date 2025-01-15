@@ -26,9 +26,9 @@ const formSchema = z.object({
   resolutions: z.array(
     z.object({
       id: z.string(),
-      text: z.string().min(1, "Resolution cannot be empty").max(50, "Resolution is too long"),
+      text: z.string().min(1, "La résolution ne peut pas être vide").max(50, "La résolution est trop longue"),
     })
-  ).min(9, "Add at least 9 resolutions"),
+  ).min(9, "Ajoutez au moins 9 résolutions"),
   gridSize: z.enum(["3x3", "4x4"]),
 });
 
@@ -67,7 +67,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
   };
 
   return (
-    <Card className="max-w-2xl mx-auto">
+    <Card className="max-w-2xl mx-auto bg-white/90 backdrop-blur">
       <CardContent className="pt-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -76,14 +76,14 @@ export default function ResolutionForm({ onSubmit }: Props) {
               name="gridSize"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Grid Size</FormLabel>
+                  <FormLabel>Taille de la Grille</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select grid size" />
+                        <SelectValue placeholder="Sélectionnez la taille" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -96,7 +96,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
             />
 
             <div className="space-y-4">
-              <FormLabel>Your Resolutions</FormLabel>
+              <FormLabel>Vos Résolutions</FormLabel>
               {form.getValues("resolutions").map((_, index) => (
                 <FormField
                   key={form.getValues(`resolutions.${index}.id`)}
@@ -107,9 +107,9 @@ export default function ResolutionForm({ onSubmit }: Props) {
                       <FormControl>
                         <div className="flex gap-2">
                           <Input
-                            placeholder={`Resolution ${index + 1}`}
+                            placeholder={`Résolution ${index + 1}`}
                             {...field}
-                            className="font-['Segoe_Print',_cursive]"
+                            className="font-serif"
                           />
                           {form.getValues("resolutions").length > minResolutions && (
                             <Button
@@ -117,6 +117,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
                               variant="outline"
                               size="icon"
                               onClick={() => removeResolution(index)}
+                              className="text-gray-500"
                             >
                               ×
                             </Button>
@@ -136,14 +137,14 @@ export default function ResolutionForm({ onSubmit }: Props) {
               onClick={addResolution}
               className="w-full"
             >
-              Add Resolution
+              Ajouter une Résolution
             </Button>
 
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600"
+              className="w-full bg-gray-900 hover:bg-gray-800 text-white"
             >
-              Generate Bingo Card
+              Générer la Carte de Bingo
             </Button>
           </form>
         </Form>
