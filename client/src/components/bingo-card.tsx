@@ -2,12 +2,24 @@ import { useState, useEffect } from "react";
 import { Resolution, GridSize } from "@/pages/home";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Share2, Twitter } from "lucide-react";
+import { Label } from "@/components/ui/label";
 
 type Props = {
   resolutions: Resolution[];
   gridSize: GridSize;
+};
+
+type StatusMap = {
+  [key: string]: string;
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -22,6 +34,9 @@ function shuffleArray<T>(array: T[]): T[] {
 export default function BingoCard({ resolutions, gridSize }: Props) {
   const [shuffledResolutions, setShuffledResolutions] = useState<Resolution[]>([]);
   const [checkedCells, setCheckedCells] = useState<Set<string>>(new Set());
+  const [statusMap, setStatusMap] = useState<StatusMap>({});
+  const [selectedResolution, setSelectedResolution] = useState<Resolution | null>(null);
+  const [currentStatus, setCurrentStatus] = useState("");
 
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
@@ -49,27 +64,14 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
     setCheckedCells(newCheckedCells);
   };
 
-  const handleShare = (platform: 'twitter' | 'general') => {
-    const completedCount = checkedCells.size;
-    const totalCount = shuffledResolutions.length;
-    const percentage = Math.round((completedCount / totalCount) * 100);
-
-    const text = `J'ai accompli ${completedCount}/${totalCount} (${percentage}%) de mes résolutions pour 2024! 🎯`;
-    const url = window.location.href;
-
-    if (platform === 'twitter') {
-      window.open(
-        `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
-        '_blank'
-      );
-    } else {
-      if (navigator.share) {
-        navigator.share({
-          title: 'Mon Bingo des Résolutions 2024',
-          text,
-          url,
-        }).catch(console.error);
-      }
+  const handleStatusUpdate = () => {
+    if (selectedResolution && currentStatus.trim()) {
+      setStatusMap(prev => ({
+        ...prev,
+        [selectedResolution.id]: currentStatus.trim()
+      }));
+      setSelectedResolution(null);
+      setCurrentStatus("");
     }
   };
 
@@ -92,59 +94,71 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
           gridTemplateRows: `repeat(${rows}, 1fr)`,
         }}
       >
-        {shuffledResolutions.slice(0, cellCount).map((resolution, index) => (
-          <motion.div
-            key={resolution.id}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.2,
-              delay: index * 0.03,
-              ease: "easeOut",
-            }}
-          >
-            <Card 
-              className={`p-4 min-h-[120px] flex items-center justify-center text-center transition-all duration-200 border-gray-100 cursor-pointer
-                ${checkedCells.has(resolution.id) 
-                  ? 'bg-gray-50 border-primary/50' 
-                  : 'hover:bg-gray-50/50'}`}
-              onClick={() => toggleCell(resolution.id)}
-            >
-              <p className="text-sm md:text-base text-gray-600 leading-relaxed">
-                {resolution.text}
-              </p>
-            </Card>
-          </motion.div>
+        {shuffledResolutions.slice(0, cellCount).map((resolution) => (
+          <Dialog key={resolution.id} onOpenChange={(open) => {
+            if (open) {
+              setSelectedResolution(resolution);
+              setCurrentStatus(statusMap[resolution.id] || "");
+            }
+          }}>
+            <DialogTrigger asChild>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.2,
+                  ease: "easeOut",
+                }}
+              >
+                <Card 
+                  className={`p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 cursor-pointer
+                    ${checkedCells.has(resolution.id) 
+                      ? 'bg-gray-50 border-primary/50' 
+                      : 'hover:bg-gray-50/50'}`}
+                  onClick={() => toggleCell(resolution.id)}
+                >
+                  <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                    {resolution.text}
+                  </p>
+                  {statusMap[resolution.id] && (
+                    <p className="mt-2 text-xs text-gray-400 italic">
+                      {statusMap[resolution.id]}
+                    </p>
+                  )}
+                </Card>
+              </motion.div>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Mise à jour du statut</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 pt-4">
+                <div className="space-y-2">
+                  <Label>Résolution</Label>
+                  <p className="text-sm text-gray-600">{resolution.text}</p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="status">Statut actuel</Label>
+                  <Input
+                    id="status"
+                    value={currentStatus}
+                    onChange={(e) => setCurrentStatus(e.target.value)}
+                    placeholder="Ex: J'ai commencé à courir 2 fois par semaine"
+                  />
+                </div>
+                <Button onClick={handleStatusUpdate} className="w-full">
+                  Enregistrer le statut
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         ))}
       </div>
 
-      <div className="text-center mt-8 space-y-4">
+      <div className="text-center mt-8">
         <p className="text-sm text-gray-500">
-          Cochez les résolutions accomplies
+          Cliquez sur une résolution pour ajouter un statut
         </p>
-
-        <div className="flex justify-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-2"
-            onClick={() => handleShare('twitter')}
-          >
-            <Twitter className="w-4 h-4" />
-            Partager sur Twitter
-          </Button>
-          {navigator.share && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="gap-2"
-              onClick={() => handleShare('general')}
-            >
-              <Share2 className="w-4 h-4" />
-              Partager
-            </Button>
-          )}
-        </div>
       </div>
     </div>
   );
