@@ -15,9 +15,16 @@ type Resolution = {
   position: number;
 };
 
+type EditingState = {
+  [key: number]: {
+    text?: string;
+    status?: string;
+  };
+};
+
 export default function Admin() {
   const { toast } = useToast();
-  const [editingStatus, setEditingStatus] = useState<{[key: number]: string}>({});
+  const [editingState, setEditingState] = useState<EditingState>({});
   const { user, isLoading } = useUser();
   const [_, setLocation] = useLocation();
 
@@ -32,44 +39,50 @@ export default function Admin() {
     queryKey: ["/api/personal-resolutions"],
   });
 
-  const updateStatus = useMutation({
-    mutationFn: async ({ id, status }: { id: number; status: string }) => {
+  const updateResolution = useMutation({
+    mutationFn: async ({ id, text, status }: { id: number; text?: string; status?: string }) => {
       const res = await fetch(`/api/personal-resolutions/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ text, status }),
       });
 
       if (!res.ok) {
-        throw new Error("Failed to update status");
+        throw new Error("Failed to update");
       }
     },
     onSuccess: () => {
       refetch();
       toast({
         title: "Succès",
-        description: "Le statut a été mis à jour",
+        description: "La modification a été enregistrée",
       });
     },
     onError: () => {
       toast({
         title: "Erreur",
-        description: "Impossible de mettre à jour le statut",
+        description: "Impossible d'enregistrer la modification",
         variant: "destructive",
       });
     },
   });
 
-  const handleStatusUpdate = (resolution: Resolution) => {
-    const newStatus = editingStatus[resolution.id];
-    if (newStatus === undefined || newStatus === resolution.status) return;
+  const handleUpdate = (resolution: Resolution, type: 'text' | 'status') => {
+    const newValue = editingState[resolution.id]?.[type];
+    if (newValue === undefined || newValue === resolution[type]) return;
 
-    updateStatus.mutate({
+    updateResolution.mutate({
       id: resolution.id,
-      status: newStatus,
+      [type]: newValue,
     });
-    setEditingStatus(prev => ({ ...prev, [resolution.id]: "" }));
+    setEditingState(prev => ({
+      ...prev,
+      [resolution.id]: {
+        ...prev[resolution.id],
+        [type]: "",
+      }
+    }));
   };
 
   if (isLoading) {
@@ -89,7 +102,7 @@ export default function Admin() {
       <div className="container max-w-4xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
-            Admin - Gestion des résolutions
+            Admin - Gestion des objectifs
           </h1>
           <Button 
             variant="outline" 
@@ -109,32 +122,61 @@ export default function Admin() {
           {resolutions?.map((resolution) => (
             <Card key={resolution.id}>
               <CardContent className="p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="font-medium text-gray-900 mb-1">
-                      {resolution.text}
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      Statut actuel: {resolution.status}
-                    </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-1">
+                      <h3 className="font-medium text-gray-900 mb-1">
+                        Objectif actuel: {resolution.text}
+                      </h3>
+                      <Input
+                        className="mt-2"
+                        placeholder="Modifier l'objectif"
+                        value={editingState[resolution.id]?.text || ""}
+                        onChange={(e) => setEditingState(prev => ({
+                          ...prev,
+                          [resolution.id]: {
+                            ...prev[resolution.id],
+                            text: e.target.value
+                          }
+                        }))}
+                      />
+                      <Button 
+                        variant="outline"
+                        className="mt-2"
+                        onClick={() => handleUpdate(resolution, 'text')}
+                        disabled={!editingState[resolution.id]?.text || editingState[resolution.id]?.text === resolution.text}
+                      >
+                        Modifier l'objectif
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      className="w-64"
-                      placeholder="Nouveau statut"
-                      value={editingStatus[resolution.id] || ""}
-                      onChange={(e) => setEditingStatus(prev => ({
-                        ...prev,
-                        [resolution.id]: e.target.value
-                      }))}
-                    />
-                    <Button 
-                      variant="outline"
-                      onClick={() => handleStatusUpdate(resolution)}
-                      disabled={!editingStatus[resolution.id] || editingStatus[resolution.id] === resolution.status}
-                    >
-                      Mettre à jour
-                    </Button>
+
+                  <div className="flex items-start gap-4 pt-4 border-t">
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-500">
+                        Statut actuel: {resolution.status}
+                      </p>
+                      <Input
+                        className="mt-2"
+                        placeholder="Nouveau statut"
+                        value={editingState[resolution.id]?.status || ""}
+                        onChange={(e) => setEditingState(prev => ({
+                          ...prev,
+                          [resolution.id]: {
+                            ...prev[resolution.id],
+                            status: e.target.value
+                          }
+                        }))}
+                      />
+                      <Button 
+                        variant="outline"
+                        className="mt-2"
+                        onClick={() => handleUpdate(resolution, 'status')}
+                        disabled={!editingState[resolution.id]?.status || editingState[resolution.id]?.status === resolution.status}
+                      >
+                        Modifier le statut
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>

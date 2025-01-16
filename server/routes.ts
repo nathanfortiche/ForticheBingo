@@ -29,23 +29,24 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
-  // Update resolution status (protected route)
+  // Update resolution text and status (protected route)
   app.put("/api/personal-resolutions/:id", isAuthenticated, async (req, res) => {
     const { id } = req.params;
-    const { status } = req.body;
+    const { status, text } = req.body;
 
     try {
       await db
         .update(personalResolutions)
         .set({ 
-          status,
+          ...(status && { status }),
+          ...(text && { text }),
           updatedAt: new Date(),
         })
         .where(eq(personalResolutions.id, parseInt(id)));
 
-      res.json({ message: "Status updated successfully" });
+      res.json({ message: "Updated successfully" });
     } catch (error) {
-      res.status(500).json({ message: "Error updating status" });
+      res.status(500).json({ message: "Error updating" });
     }
   });
 

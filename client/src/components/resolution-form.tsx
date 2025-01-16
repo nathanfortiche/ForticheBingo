@@ -28,7 +28,7 @@ const formSchema = z.object({
       id: z.string(),
       text: z.string().max(50, "50 caractères maximum"),
     })
-  ).min(9, "Minimum 9 résolutions requises"),
+  ).min(9, "Minimum 9 objectifs requis"),
   gridSize: z.enum(["3x3", "3x4", "4x4"]),
 });
 
@@ -106,9 +106,9 @@ export default function ResolutionForm({ onSubmit }: Props) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="3x3">3 × 3 (9 résolutions)</SelectItem>
-                      <SelectItem value="3x4">3 × 4 (12 résolutions)</SelectItem>
-                      <SelectItem value="4x4">4 × 4 (16 résolutions)</SelectItem>
+                      <SelectItem value="3x3">3 × 3 (9 objectifs)</SelectItem>
+                      <SelectItem value="3x4">3 × 4 (12 objectifs)</SelectItem>
+                      <SelectItem value="4x4">4 × 4 (16 objectifs)</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormItem>
@@ -116,7 +116,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
             />
 
             <div className="space-y-4">
-              <FormLabel className="text-gray-700">Vos résolutions</FormLabel>
+              <FormLabel className="text-gray-700">Vos objectifs</FormLabel>
               {form.getValues("resolutions").map((_, index) => (
                 <FormField
                   key={form.getValues(`resolutions.${index}.id`)}
@@ -126,7 +126,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
                     <FormItem>
                       <FormControl>
                         <Input
-                          placeholder={`Résolution ${index + 1}`}
+                          placeholder={`Objectif ${index + 1}`}
                           {...field}
                           className="bg-white"
                         />
