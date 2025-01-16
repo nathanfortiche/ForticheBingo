@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@/hooks/use-user";
+import { useLocation } from "wouter";
+import { Loader2 } from "lucide-react";
 
 type Resolution = {
   id: number;
@@ -15,6 +18,15 @@ type Resolution = {
 export default function Admin() {
   const { toast } = useToast();
   const [editingStatus, setEditingStatus] = useState<{[key: number]: string}>({});
+  const { user, isLoading } = useUser();
+  const [_, setLocation] = useLocation();
+
+  // Redirect to auth page if not authenticated
+  useEffect(() => {
+    if (!isLoading && !user) {
+      setLocation("/auth");
+    }
+  }, [user, isLoading, setLocation]);
 
   const { data: resolutions, refetch } = useQuery<Resolution[]>({
     queryKey: ["/api/personal-resolutions"],
@@ -25,9 +37,10 @@ export default function Admin() {
       const res = await fetch(`/api/personal-resolutions/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ status }),
       });
-      
+
       if (!res.ok) {
         throw new Error("Failed to update status");
       }
@@ -59,12 +72,38 @@ export default function Admin() {
     setEditingStatus(prev => ({ ...prev, [resolution.id]: "" }));
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
+        <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 py-16">
       <div className="container max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">
-          Admin - Gestion des résolutions
-        </h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Admin - Gestion des résolutions
+          </h1>
+          <Button 
+            variant="outline" 
+            onClick={async () => {
+              await fetch('/api/logout', { 
+                method: 'POST',
+                credentials: 'include'
+              });
+              setLocation("/auth");
+            }}
+          >
+            Se déconnecter
+          </Button>
+        </div>
 
         <div className="space-y-4">
           {resolutions?.map((resolution) => (

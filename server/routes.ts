@@ -3,9 +3,21 @@ import { createServer, type Server } from "http";
 import { db } from "@db";
 import { personalResolutions } from "@db/schema";
 import { eq } from "drizzle-orm";
+import { setupAuth } from "./auth";
+
+// Middleware to check if user is authenticated
+const isAuthenticated = (req: Express.Request, res: Express.Response, next: Express.NextFunction) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.status(401).json({ message: "Not authenticated" });
+};
 
 export function registerRoutes(app: Express): Server {
-  // Get personal resolutions
+  // Set up authentication
+  setupAuth(app);
+
+  // Get personal resolutions (public route)
   app.get("/api/personal-resolutions", async (_req, res) => {
     try {
       const resolutions = await db.query.personalResolutions.findMany({
@@ -18,7 +30,7 @@ export function registerRoutes(app: Express): Server {
   });
 
   // Update resolution status (protected route)
-  app.put("/api/personal-resolutions/:id", async (req, res) => {
+  app.put("/api/personal-resolutions/:id", isAuthenticated, async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
