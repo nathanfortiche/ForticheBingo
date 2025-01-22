@@ -1,85 +1,38 @@
 import passport from "passport";
-import { IVerifyOptions, Strategy as LocalStrategy } from "passport-local";
+import { Strategy as LocalStrategy } from "passport-local";
 import { type Express } from "express";
 import session from "express-session";
 import createMemoryStore from "memorystore";
 import { scrypt, randomBytes, timingSafeEqual } from "crypto";
 import { promisify } from "util";
-import { users, insertUserSchema, type SelectUser } from "@db/schema";
-import { db } from "@db";
-import { eq } from "drizzle-orm";
 
 const scryptAsync = promisify(scrypt);
-const crypto = {
-  hash: async (password: string) => {
-    const salt = randomBytes(16).toString("hex");
-    const buf = (await scryptAsync(password, salt, 64)) as Buffer;
-    return `${buf.toString("hex")}.${salt}`;
-  },
-  compare: async (suppliedPassword: string, storedPassword: string) => {
-    const [hashedPassword, salt] = storedPassword.split(".");
-    const hashedPasswordBuf = Buffer.from(hashedPassword, "hex");
-    const suppliedPasswordBuf = (await scryptAsync(
-      suppliedPassword,
-      salt,
-      64
-    )) as Buffer;
-    return timingSafeEqual(hashedPasswordBuf, suppliedPasswordBuf);
-  },
-};
 
-// extend express user object with our schema
-declare global {
-  namespace Express {
-    interface User extends SelectUser { }
-  }
+// Interface pour l'utilisateur admin
+interface AdminUser {
+  id: number;
+  username: string;
 }
 
-export async function createAdminUser() {
-  const username = process.env.ADMIN_USERNAME;
-  const password = process.env.ADMIN_PASSWORD;
-
-  if (!username || !password) {
-    console.error("Admin credentials not found in environment variables");
-    return;
+const crypto = {
+  async compare(suppliedPassword: string, storedPassword: string) {
+    const salt = process.env.ADMIN_SALT || 'default-salt';
+    const suppliedPasswordBuf = (await scryptAsync(suppliedPassword, salt, 64)) as Buffer;
+    const storedPasswordBuf = (await scryptAsync(storedPassword, salt, 64)) as Buffer;
+    return timingSafeEqual(storedPasswordBuf, suppliedPasswordBuf);
   }
+};
 
-  try {
-    // Check if admin user exists
-    const [existingUser] = await db
-      .select()
-      .from(users)
-      .where(eq(users.username, username))
-      .limit(1);
-
-    if (existingUser) {
-      // Update password if user exists
-      const hashedPassword = await crypto.hash(password);
-      await db
-        .update(users)
-        .set({ password: hashedPassword })
-        .where(eq(users.id, existingUser.id));
-      console.log("Admin password updated");
-    } else {
-      // Create new admin user
-      const hashedPassword = await crypto.hash(password);
-      await db
-        .insert(users)
-        .values({
-          username,
-          password: hashedPassword,
-        });
-      console.log("Admin user created");
-    }
-  } catch (error) {
-    console.error("Error creating/updating admin user:", error);
+declare global {
+  namespace Express {
+    interface User extends AdminUser { }
   }
 }
 
 export function setupAuth(app: Express) {
   const MemoryStore = createMemoryStore(session);
   const sessionSettings: session.SessionOptions = {
-    secret: process.env.REPL_ID || "porygon-supremacy",
+    secret: process.env.REPL_ID || "bingo-session-secret",
     resave: false,
     saveUninitialized: false,
     cookie: {},
@@ -99,25 +52,25 @@ export function setupAuth(app: Express) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  createAdminUser(); // Create/update admin user on startup
+  // Utiliser les variables d'environnement pour l'authentification
+  const adminUser: AdminUser = {
+    id: 1,
+    username: process.env.ADMIN_USERNAME || 'admin'
+  };
 
   passport.use(
     new LocalStrategy(async (username, password, done) => {
       try {
-        const [user] = await db
-          .select()
-          .from(users)
-          .where(eq(users.username, username))
-          .limit(1);
-
-        if (!user) {
+        if (username !== process.env.ADMIN_USERNAME) {
           return done(null, false, { message: "Incorrect username." });
         }
-        const isMatch = await crypto.compare(password, user.password);
+
+        const isMatch = await crypto.compare(password, process.env.ADMIN_PASSWORD || '');
         if (!isMatch) {
           return done(null, false, { message: "Incorrect password." });
         }
-        return done(null, user);
+
+        return done(null, adminUser);
       } catch (err) {
         return done(err);
       }
@@ -129,99 +82,34 @@ export function setupAuth(app: Express) {
   });
 
   passport.deserializeUser(async (id: number, done) => {
-    try {
-      const [user] = await db
-        .select()
-        .from(users)
-        .where(eq(users.id, id))
-        .limit(1);
-      done(null, user);
-    } catch (err) {
-      done(err);
+    if (id === adminUser.id) {
+      done(null, adminUser);
+    } else {
+      done(new Error("User not found"));
     }
   });
 
-  app.post("/api/register", async (req, res, next) => {
-    try {
-      const result = insertUserSchema.safeParse(req.body);
-      if (!result.success) {
-        return res
-          .status(400)
-          .send("Invalid input: " + result.error.issues.map(i => i.message).join(", "));
+  app.post("/api/login", (req, res, next) => {
+    passport.authenticate("local", (err: any, user: Express.User | false, info: { message: string }) => {
+      if (err) {
+        return next(err);
       }
 
-      const { username, password } = result.data;
-
-      // Check if user already exists
-      const [existingUser] = await db
-        .select()
-        .from(users)
-        .where(eq(users.username, username))
-        .limit(1);
-
-      if (existingUser) {
-        return res.status(400).send("Username already exists");
+      if (!user) {
+        return res.status(400).send(info.message);
       }
 
-      // Hash the password
-      const hashedPassword = await crypto.hash(password);
-
-      // Create the new user
-      const [newUser] = await db
-        .insert(users)
-        .values({
-          ...result.data,
-          password: hashedPassword,
-        })
-        .returning();
-
-      // Log the user in after registration
-      req.login(newUser, (err) => {
+      req.logIn(user, (err) => {
         if (err) {
           return next(err);
         }
+
         return res.json({
-          message: "Registration successful",
-          user: { id: newUser.id, username: newUser.username },
+          message: "Login successful",
+          user: { id: user.id, username: user.username },
         });
       });
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  app.post("/api/login", async (req, res, next) => {
-    try {
-      const result = insertUserSchema.safeParse(req.body);
-      if (!result.success) {
-        return res
-          .status(400)
-          .send("Invalid input: " + result.error.issues.map(i => i.message).join(", "));
-      }
-
-      passport.authenticate("local", (err: any, user: Express.User, info: IVerifyOptions) => {
-        if (err) {
-          return next(err);
-        }
-
-        if (!user) {
-          return res.status(400).send(info.message ?? "Login failed");
-        }
-
-        req.logIn(user, (err) => {
-          if (err) {
-            return next(err);
-          }
-
-          return res.json({
-            message: "Login successful",
-            user: { id: user.id, username: user.username },
-          });
-        });
-      })(req, res, next);
-    } catch (error) {
-      next(error);
-    }
+    })(req, res, next);
   });
 
   app.post("/api/logout", (req, res) => {
@@ -229,7 +117,6 @@ export function setupAuth(app: Express) {
       if (err) {
         return res.status(500).send("Logout failed");
       }
-
       res.json({ message: "Logout successful" });
     });
   });
@@ -238,7 +125,6 @@ export function setupAuth(app: Express) {
     if (req.isAuthenticated()) {
       return res.json(req.user);
     }
-
     res.status(401).send("Not logged in");
   });
 }
