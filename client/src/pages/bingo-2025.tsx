@@ -14,7 +14,7 @@ type Resolution = {
 
 export default function Bingo2025() {
   const { data: resolutions } = useQuery<Resolution[]>({
-    queryKey: ["/api/personal-resolutions"],
+    queryKey: ["/api/admin4768932/resolutions"],
   });
 
   return (
