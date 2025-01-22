@@ -9,12 +9,17 @@ export function registerRoutes(app: Express): Server {
 
   // Get all resolutions
   app.get("/api/admin4768932/resolutions", (_req, res) => {
-    // Mock data since we're not using a database
+    // Mock data with user's personal objectives
     const mockResolutions = [
-      { id: 1, text: "Faire du sport régulièrement", status: "En cours", position: 0 },
-      { id: 2, text: "Apprendre une nouvelle langue", status: "Pas commencé", position: 1 },
-      { id: 3, text: "Voyager dans un nouveau pays", status: "Pas commencé", position: 2 },
-      { id: 4, text: "Lire 12 livres", status: "En cours", position: 3 },
+      { id: 1, text: "Perdre 5kg", status: "Pas commencé", position: 0 },
+      { id: 2, text: "Courir un semi-marathon", status: "Pas commencé", position: 1 },
+      { id: 3, text: "Apprendre le piano", status: "Pas commencé", position: 2 },
+      { id: 4, text: "Voyager au Japon", status: "Pas commencé", position: 3 },
+      { id: 5, text: "Lire 12 livres", status: "Pas commencé", position: 4 },
+      { id: 6, text: "Méditer 10 minutes par jour", status: "Pas commencé", position: 5 },
+      { id: 7, text: "Économiser 5000€", status: "Pas commencé", position: 6 },
+      { id: 8, text: "Apprendre à cuisiner 5 plats", status: "Pas commencé", position: 7 },
+      { id: 9, text: "Obtenir une promotion", status: "Pas commencé", position: 8 }
     ];
     res.json(mockResolutions);
   });
