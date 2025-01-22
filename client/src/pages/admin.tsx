@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import { useLocation } from "wouter";
 
 type Resolution = {
   id: number;
@@ -24,7 +23,6 @@ type EditingState = {
 export default function Admin() {
   const { toast } = useToast();
   const [editingState, setEditingState] = useState<EditingState>({});
-  const [_, setLocation] = useLocation();
 
   const { data: resolutions, refetch } = useQuery<Resolution[]>({
     queryKey: ["/api/admin4768932/resolutions"],
@@ -89,19 +87,6 @@ export default function Admin() {
         <h1 className="text-3xl font-bold text-gray-900 mb-8">
           Admin - Gestion des objectifs
         </h1>
-
-        <Button 
-          variant="outline" 
-          onClick={async () => {
-            await fetch('/api/logout', { 
-              method: 'POST',
-              credentials: 'include'
-            });
-            setLocation("/auth");
-          }}
-        >
-          Se déconnecter
-        </Button>
 
         <div className="space-y-4">
           {resolutions.map((resolution) => (

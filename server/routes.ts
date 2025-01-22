@@ -7,6 +7,18 @@ export function registerRoutes(app: Express): Server {
     res.json({ message: "Admin access granted" });
   });
 
+  // Get all resolutions
+  app.get("/api/admin4768932/resolutions", (_req, res) => {
+    // Mock data since we're not using a database
+    const mockResolutions = [
+      { id: 1, text: "Faire du sport régulièrement", status: "En cours", position: 0 },
+      { id: 2, text: "Apprendre une nouvelle langue", status: "Pas commencé", position: 1 },
+      { id: 3, text: "Voyager dans un nouveau pays", status: "Pas commencé", position: 2 },
+      { id: 4, text: "Lire 12 livres", status: "En cours", position: 3 },
+    ];
+    res.json(mockResolutions);
+  });
+
   // Update resolution status
   app.put("/api/admin4768932/resolutions/:id", (req, res) => {
     try {
