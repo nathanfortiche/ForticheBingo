@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { useUser } from "@/hooks/use-user";
-import { useLocation } from "wouter";
 import { Loader2 } from "lucide-react";
+import { useLocation } from "wouter";
 
 type Resolution = {
   id: number;
@@ -25,26 +24,17 @@ type EditingState = {
 export default function Admin() {
   const { toast } = useToast();
   const [editingState, setEditingState] = useState<EditingState>({});
-  const { user, isLoading } = useUser();
   const [_, setLocation] = useLocation();
 
-  // Redirect to auth page if not authenticated
-  useEffect(() => {
-    if (!isLoading && !user) {
-      setLocation("/auth");
-    }
-  }, [user, isLoading, setLocation]);
-
   const { data: resolutions, refetch } = useQuery<Resolution[]>({
-    queryKey: ["/api/personal-resolutions"],
+    queryKey: ["/api/admin4768932/resolutions"],
   });
 
   const updateResolution = useMutation({
     mutationFn: async ({ id, text, status }: { id: number; text?: string; status?: string }) => {
-      const res = await fetch(`/api/personal-resolutions/${id}`, {
+      const res = await fetch(`/api/admin4768932/resolutions/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ text, status }),
       });
 
@@ -85,7 +75,7 @@ export default function Admin() {
     }));
   };
 
-  if (isLoading) {
+  if (!resolutions) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
         <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
@@ -93,33 +83,28 @@ export default function Admin() {
     );
   }
 
-  if (!user) {
-    return null;
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 py-16">
       <div className="container max-w-4xl mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Admin - Gestion des objectifs
-          </h1>
-          <Button 
-            variant="outline" 
-            onClick={async () => {
-              await fetch('/api/logout', { 
-                method: 'POST',
-                credentials: 'include'
-              });
-              setLocation("/auth");
-            }}
-          >
-            Se déconnecter
-          </Button>
-        </div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">
+          Admin - Gestion des objectifs
+        </h1>
+
+        <Button 
+          variant="outline" 
+          onClick={async () => {
+            await fetch('/api/logout', { 
+              method: 'POST',
+              credentials: 'include'
+            });
+            setLocation("/auth");
+          }}
+        >
+          Se déconnecter
+        </Button>
 
         <div className="space-y-4">
-          {resolutions?.map((resolution) => (
+          {resolutions.map((resolution) => (
             <Card key={resolution.id}>
               <CardContent className="p-6">
                 <div className="space-y-4">
