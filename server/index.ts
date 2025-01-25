@@ -63,8 +63,9 @@ app.use((req, res, next) => {
     });
   }
 
-  const PORT = process.env.PORT || 5000;
-  server.listen(PORT, "0.0.0.0", () => {
+  // Fix TypeScript error by converting PORT to number
+  const PORT = Number(process.env.PORT) || 5000;
+  server.listen(PORT, () => {
     log(`serving on port ${PORT}`);
   });
 })();
