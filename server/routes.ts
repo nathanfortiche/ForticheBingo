@@ -7,6 +7,7 @@ export function registerRoutes(app: Express): Server {
     try {
       res.json({ message: "Admin access granted" });
     } catch (error) {
+      console.error('Admin status error:', error);
       res.status(500).json({ message: "Internal server error", error: String(error) });
     }
   });
@@ -34,6 +35,7 @@ export function registerRoutes(app: Express): Server {
       ];
       res.json({ data: mockResolutions });
     } catch (error) {
+      console.error('Get resolutions error:', error);
       res.status(500).json({ message: "Internal server error", error: String(error) });
     }
   });
@@ -54,6 +56,7 @@ export function registerRoutes(app: Express): Server {
         }
       });
     } catch (error) {
+      console.error('Get bingo data error:', error);
       res.status(500).json({ message: "Internal server error", error: String(error) });
     }
   });
@@ -64,6 +67,7 @@ export function registerRoutes(app: Express): Server {
       const { text, status } = req.body;
       res.json({ message: "Updated successfully", data: { text, status } });
     } catch (error) {
+      console.error('Update resolution error:', error);
       res.status(500).json({ message: "Error updating resolution" });
     }
   });
