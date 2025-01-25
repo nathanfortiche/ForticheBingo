@@ -52,19 +52,20 @@ app.use((req, res, next) => {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    // In production, serve static files from dist/public
+    // Serve static files from dist/public
     const staticPath = path.join(__dirname, 'public');
     app.use(express.static(staticPath));
 
-    // Handle client-side routing by serving index.html for all non-API routes
-    app.get('*', (req, res) => {
+    // Important: All routes that don't start with /api should serve index.html
+    app.get('*', (req, res, next) => {
       if (!req.path.startsWith('/api')) {
         res.sendFile(path.join(staticPath, 'index.html'));
+      } else {
+        next();
       }
     });
   }
 
-  // Fix TypeScript error by converting PORT to number
   const PORT = Number(process.env.PORT) || 5000;
   server.listen(PORT, "0.0.0.0", () => {
     log(`serving on port ${PORT}`);
