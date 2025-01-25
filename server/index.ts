@@ -26,11 +26,6 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
-      }
-
       log(logLine);
     }
   });
@@ -42,6 +37,7 @@ const createServer = async () => {
   const server = registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+    console.error('Server error:', err);
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
     res.status(status).json({ message });
@@ -50,6 +46,7 @@ const createServer = async () => {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
+    // Serve static files first
     const publicPath = process.env.VERCEL 
       ? path.join(process.cwd(), 'dist', 'public')
       : path.resolve(__dirname, "public");
@@ -60,7 +57,8 @@ const createServer = async () => {
       index: false
     }));
 
-    app.get("*", (_req, res) => {
+    // Handle client-side routing for non-API routes
+    app.get(/^(?!\/?api\/).+/, (_req, res) => {
       res.sendFile(path.join(publicPath, "index.html"), {
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
