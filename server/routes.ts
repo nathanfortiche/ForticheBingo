@@ -5,7 +5,6 @@ export function registerRoutes(app: Express): Server {
   // Admin route with hardcoded URL for security through obscurity
   app.get("/api/admin4768932/status", (_req, res) => {
     try {
-      console.log("[API] Accessing admin status");
       res.json({ message: "Admin access granted" });
     } catch (error) {
       console.error('Admin status error:', error);
@@ -16,7 +15,6 @@ export function registerRoutes(app: Express): Server {
   // Get all resolutions
   app.get("/api/admin4768932/resolutions", (_req, res) => {
     try {
-      console.log("[API] Fetching all resolutions");
       const mockResolutions = [
         { id: 1, text: "100k abonnés tiktok", status: "60,9k", position: 0 },
         { id: 2, text: "Créer une app/un site que des gens utilisent", status: "3 apps commencées, aucune publiée", position: 1 },
@@ -45,7 +43,6 @@ export function registerRoutes(app: Express): Server {
   // Get bingo-2025 data
   app.get("/api/bingo-2025", (_req, res) => {
     try {
-      console.log("[API] Fetching bingo-2025 data");
       res.json({
         data: {
           title: "Mon Bingo 2025",
@@ -67,7 +64,6 @@ export function registerRoutes(app: Express): Server {
   // Update resolution status
   app.put("/api/admin4768932/resolutions/:id", (req, res) => {
     try {
-      console.log("[API] Updating resolution status", req.params.id);
       const { text, status } = req.body;
       res.json({ message: "Updated successfully", data: { text, status } });
     } catch (error) {
@@ -79,6 +75,3 @@ export function registerRoutes(app: Express): Server {
   const httpServer = createServer(app);
   return httpServer;
 }
-
-// Make sure to export both as default and named export for maximum compatibility
-export { registerRoutes as default };
