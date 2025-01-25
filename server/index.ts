@@ -53,19 +53,20 @@ app.use((req, res, next) => {
     await setupVite(app, server);
   } else {
     // In production, serve static files from dist/public
-    app.use(express.static(path.join(__dirname, '../dist/public')));
+    const staticPath = path.join(__dirname, 'public');
+    app.use(express.static(staticPath));
 
     // Handle client-side routing by serving index.html for all non-API routes
     app.get('*', (req, res) => {
       if (!req.path.startsWith('/api')) {
-        res.sendFile(path.join(__dirname, '../dist/public/index.html'));
+        res.sendFile(path.join(staticPath, 'index.html'));
       }
     });
   }
 
   // Fix TypeScript error by converting PORT to number
   const PORT = Number(process.env.PORT) || 5000;
-  server.listen(PORT, () => {
+  server.listen(PORT, "0.0.0.0", () => {
     log(`serving on port ${PORT}`);
   });
 })();
