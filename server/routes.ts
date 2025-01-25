@@ -76,4 +76,5 @@ export function registerRoutes(app: Express): Server {
   return httpServer;
 }
 
+// Make sure to export as default for proper ESM support
 export default registerRoutes;

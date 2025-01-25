@@ -11,7 +11,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Log middleware
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -83,7 +82,7 @@ async function setupServer() {
 if (!process.env.VERCEL) {
   setupServer().then(app => {
     const PORT = Number(process.env.PORT) || 5000;
-    app.listen(PORT, "0.0.0.0", () => {
+    server.listen(PORT, "0.0.0.0", () => {
       log(`serving on port ${PORT}`);
     });
   });
