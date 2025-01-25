@@ -81,7 +81,6 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
     <div
       id="bingo-card"
       className="bg-white rounded-xl shadow-xl p-8 max-w-3xl mx-auto"
-      style={{ backgroundColor: '#FFFFFF' }}
     >
       <div className="text-center mb-8">
         <h2 className="text-3xl font-medium text-gray-900 tracking-tight mb-2">
@@ -120,7 +119,6 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
                   duration: 0.2,
                   ease: "easeOut",
                 }}
-                style={{ backgroundColor: '#FFFFFF' }}
               >
                 <Card 
                   className={`p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 cursor-pointer

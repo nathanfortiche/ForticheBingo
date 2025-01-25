@@ -24,41 +24,13 @@ export default function Home() {
 
     try {
       const canvas = await html2canvas(element, {
-        backgroundColor: "#FFFFFF",
-        scale: 3, // Increased scale for better quality
-        logging: false,
-        useCORS: true,
-        removeContainer: true,
-        onclone: (clonedDoc) => {
-          // Ensure proper styling in the cloned element
-          const clonedElement = clonedDoc.getElementById("bingo-card");
-          if (clonedElement) {
-            clonedElement.style.transform = "none";
-            clonedElement.style.width = "max-content";
-            clonedElement.style.margin = "0";
-            // Force white background
-            clonedElement.style.backgroundColor = "#FFFFFF";
-          }
-        }
+        backgroundColor: null,
+        scale: 2,
       });
-
-      // Create a temporary canvas with padding
-      const tempCanvas = document.createElement('canvas');
-      const padding = 40; // Add 40px padding
-      tempCanvas.width = canvas.width + (padding * 2);
-      tempCanvas.height = canvas.height + (padding * 2);
-      const ctx = tempCanvas.getContext('2d');
-      if (ctx) {
-        // Fill white background
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-        // Draw original canvas with padding
-        ctx.drawImage(canvas, padding, padding);
-      }
 
       const link = document.createElement("a");
       link.download = "bingo-2024.png";
-      link.href = tempCanvas.toDataURL("image/png", 1.0);
+      link.href = canvas.toDataURL("image/png");
       link.click();
 
       toast({
@@ -66,7 +38,6 @@ export default function Home() {
         description: "Votre carte de bingo a été sauvegardée",
       });
     } catch (error) {
-      console.error('Export error:', error);
       toast({
         title: "Erreur",
         description: "Impossible d'exporter l'image. Réessayez.",
