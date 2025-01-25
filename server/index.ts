@@ -53,15 +53,15 @@ app.use((req, res, next) => {
     await setupVite(app, server);
   } else {
     // Serve static files from dist/public
-    const staticPath = path.join(__dirname, 'public');
+    const staticPath = path.resolve(__dirname, "public");
     app.use(express.static(staticPath));
 
-    // Important: All routes that don't start with /api should serve index.html
-    app.get('*', (req, res, next) => {
-      if (!req.path.startsWith('/api')) {
-        res.sendFile(path.join(staticPath, 'index.html'));
-      } else {
+    // Handle all non-API routes by serving index.html for client-side routing
+    app.get("*", (req, res, next) => {
+      if (req.path.startsWith("/api")) {
         next();
+      } else {
+        res.sendFile(path.resolve(staticPath, "index.html"));
       }
     });
   }
