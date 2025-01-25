@@ -14,7 +14,7 @@ const BINGO_DATA = {
       { text: "Collab avec un musée", status: "Pas commencé" }
     ],
     [
-      { text: "130 séance de sport", status: "8" },
+      { text: "130 séances de sport", status: "8" },
       { text: "Apprendre des pas de danse", status: "Pas commencé" },
       { text: "120 films vus", status: "7" },
       { text: "10 livres lus", status: "0" }
@@ -27,7 +27,7 @@ const BINGO_DATA = {
     ],
     [
       { text: "20k abos insta", status: "9967" },
-      { text: "Passer le permis", status: "3 échecs, plus le code" },
+      { text: "Réussir le permis", status: "3 échecs, plus le code" },
       { text: "5 nouveaux decks MTG", status: "2 en cours" },
       { text: "Diamant SoloQ", status: "Emeraude 3" }
     ]
