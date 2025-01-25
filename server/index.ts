@@ -1,6 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { registerRoutes } from "./routes.js"; // Add .js extension for ESM compatibility
+import { setupVite, serveStatic, log } from "./vite.js"; // Add .js for consistency
 import path from "path";
 
 const app = express();
