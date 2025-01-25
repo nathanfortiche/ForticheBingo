@@ -23,11 +23,7 @@
       "handle": "filesystem"
     },
     {
-      "src": "/(admin4768932|bingo-2025)?",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/(.+)",
+      "src": "/(.*)",
       "dest": "/index.html"
     }
   ],

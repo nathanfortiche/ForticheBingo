@@ -1,6 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
-import { setupVite, serveStatic, log } from "./vite.js";
+import { setupVite, log } from "./vite";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Register routes first before any middleware
+// Create HTTP server
 const server = createServer(app);
 
 // Error handling middleware
@@ -122,7 +122,6 @@ async function setupServer() {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    // In production/serverless, serve static files
     const publicPath = process.env.VERCEL 
       ? path.join(process.cwd(), 'dist', 'public')
       : path.resolve(__dirname, "public");
