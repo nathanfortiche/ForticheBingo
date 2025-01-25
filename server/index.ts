@@ -1,14 +1,15 @@
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { registerRoutes } from "./routes.js"; // Add .js extension for ESM
+import { setupVite, serveStatic, log } from "./vite.js"; // Add .js extension
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-// Register routes first before any middleware
-const server = registerRoutes(app);
 
 // Log middleware
 app.use((req, res, next) => {
@@ -35,6 +36,9 @@ app.use((req, res, next) => {
 
   next();
 });
+
+// Register routes first before any middleware
+const server = registerRoutes(app);
 
 // Error handling middleware
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

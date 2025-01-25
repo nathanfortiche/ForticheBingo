@@ -75,3 +75,5 @@ export function registerRoutes(app: Express): Server {
   const httpServer = createServer(app);
   return httpServer;
 }
+
+export default registerRoutes;
