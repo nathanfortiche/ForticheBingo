@@ -54,23 +54,23 @@ app.use((req, res, next) => {
   } else {
     // For production, especially on Vercel
     const publicPath = process.env.VERCEL 
-      ? "./public"  // Vercel's serverless function structure
+      ? path.join(process.cwd(), 'dist', 'public')
       : path.resolve(__dirname, "public");
+
+    // API routes should be handled first
+    app.use("/api", (req, res, next) => {
+      if (!req.path.startsWith("/api")) {
+        return res.status(404).json({ message: "API endpoint not found" });
+      }
+      next();
+    });
 
     // Serve static files with proper caching
     app.use(express.static(publicPath, {
-      maxAge: '1y',
-      etag: true
+      maxAge: '1d',
+      etag: true,
+      index: false // Don't serve index.html directly
     }));
-
-    // API routes should be handled before the catch-all
-    app.all("/api/*", (req, res, next) => {
-      if (req.path.startsWith("/api")) {
-        next();
-      } else {
-        res.status(404).json({ message: "API endpoint not found" });
-      }
-    });
 
     // SPA catch-all route - handle client-side routing
     app.get("*", (_req, res) => {
