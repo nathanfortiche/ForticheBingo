@@ -27,15 +27,29 @@ export function registerRoutes(app: Express): Server {
       { id: 15, text: "Monter 5 nouveaux decks magic", status: "1 en cours", position: 14 },
       { id: 16, text: "Diamant soloQ", status: "Plat 1", position: 15 }
     ];
-    res.json(mockResolutions);
+    res.json({ data: mockResolutions });
+  });
+
+  // Get bingo-2025 data
+  app.get("/api/bingo-2025", (_req, res) => {
+    res.json({
+      data: {
+        title: "Mon Bingo 2025",
+        subtitle: "Suivez l'évolution de mes résolutions pour 2025",
+        grid: [
+          ["100k tiktok", "App utilisée", "120kg DC", "Collab musée"],
+          ["130 séances", "Danse", "120 films", "10 livres"],
+          ["Tatouage", "Voyage pote", "Vidéo 20min", "100kg squat"],
+          ["20k insta", "Permis", "5 decks MTG", "Diamant LoL"]
+        ]
+      }
+    });
   });
 
   // Update resolution status
   app.put("/api/admin4768932/resolutions/:id", (req, res) => {
     try {
       const { text, status } = req.body;
-      // Here we would update the resolution status
-      // For now just return success since we're not using a database
       res.json({ message: "Updated successfully", data: { text, status } });
     } catch (error) {
       res.status(500).json({ message: "Error updating resolution" });

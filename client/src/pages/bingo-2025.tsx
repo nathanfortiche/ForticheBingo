@@ -12,10 +12,32 @@ type Resolution = {
   position: number;
 };
 
+type ApiResponse = {
+  data: Resolution[];
+};
+
 export default function Bingo2025() {
-  const { data: resolutions } = useQuery<Resolution[]>({
+  const { data: response, isLoading, error } = useQuery<ApiResponse>({
     queryKey: ["/api/admin4768932/resolutions"],
   });
+
+  const resolutions = response?.data || [];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
+        <p className="text-gray-500">Chargement...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
+        <p className="text-red-500">Une erreur est survenue lors du chargement des données.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -31,7 +53,7 @@ export default function Bingo2025() {
 
         <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-8 max-w-3xl mx-auto mb-12">
           <div className="grid grid-cols-4 gap-3">
-            {resolutions?.map((resolution) => (
+            {resolutions.map((resolution) => (
               <motion.div
                 key={resolution.id}
                 initial={{ opacity: 0, scale: 0.9 }}

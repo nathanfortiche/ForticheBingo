@@ -38,41 +38,28 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
+const createServer = async () => {
   const server = registerRoutes(app);
 
-  // Error handling middleware
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
     res.status(status).json({ message });
   });
 
-  // Different handling for development and production
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    // For production, especially on Vercel
     const publicPath = process.env.VERCEL 
       ? path.join(process.cwd(), 'dist', 'public')
       : path.resolve(__dirname, "public");
 
-    // API routes should be handled first
-    app.use("/api", (req, res, next) => {
-      if (!req.path.startsWith("/api")) {
-        return res.status(404).json({ message: "API endpoint not found" });
-      }
-      next();
-    });
-
-    // Serve static files with proper caching
     app.use(express.static(publicPath, {
       maxAge: '1d',
       etag: true,
-      index: false // Don't serve index.html directly
+      index: false
     }));
 
-    // SPA catch-all route - handle client-side routing
     app.get("*", (_req, res) => {
       res.sendFile(path.join(publicPath, "index.html"), {
         headers: {
@@ -84,11 +71,18 @@ app.use((req, res, next) => {
     });
   }
 
-  // Only start the server if not running on Vercel
-  if (!process.env.VERCEL) {
+  return app;
+};
+
+// For local development
+if (!process.env.VERCEL) {
+  createServer().then(app => {
     const PORT = Number(process.env.PORT) || 5000;
-    server.listen(PORT, "0.0.0.0", () => {
+    app.listen(PORT, "0.0.0.0", () => {
       log(`serving on port ${PORT}`);
     });
-  }
-})();
+  });
+}
+
+// For Vercel serverless deployment
+export default createServer;
