@@ -19,10 +19,7 @@
       "dest": "server/index.ts"
     },
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
+      "src": "/(admin4768932|bingo-2025|.*)",
       "dest": "dist/public/index.html"
     }
   ],
