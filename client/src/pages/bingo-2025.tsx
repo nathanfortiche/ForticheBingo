@@ -1,68 +1,62 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 
-type Resolution = {
-  id: number;
-  text: string;
-  status: string;
-  position: number;
-};
-
-type ApiResponse = {
-  data: Resolution[];
+const BINGO_DATA = {
+  title: "Mon Bingo 2025",
+  subtitle: "Suivez l'évolution de mes résolutions pour 2025",
+  grid: [
+    [
+      { text: "100k tiktok", status: "60,9k" },
+      { text: "App utilisée", status: "3 apps commencées, aucune publiée" },
+      { text: "120kg DC", status: "100kg (juillet 2024)" },
+      { text: "Collab musée", status: "Pas commencé" }
+    ],
+    [
+      { text: "130 séances", status: "5" },
+      { text: "Danse", status: "Pas commencé" },
+      { text: "120 films", status: "3" },
+      { text: "10 livres", status: "0" }
+    ],
+    [
+      { text: "Tatouage", status: "Plein d'idées, bcp d'hésitation" },
+      { text: "Voyage pote", status: "Pas commencé" },
+      { text: "Vidéo 20min", status: "Pas commencé" },
+      { text: "100kg squat", status: "80kg (janv 2025)" }
+    ],
+    [
+      { text: "20k insta", status: "8816" },
+      { text: "Permis", status: "3 échecs, plus le code" },
+      { text: "5 decks MTG", status: "1 en cours" },
+      { text: "Diamant LoL", status: "Plat 1" }
+    ]
+  ]
 };
 
 export default function Bingo2025() {
-  const { data: response, isLoading, error } = useQuery<ApiResponse>({
-    queryKey: ["/api/admin4768932/resolutions"],
-    retry: 3,
-    retryDelay: 1000,
-  });
-
-  const resolutions = response?.data || [];
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
-        <p className="text-gray-500">Chargement...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    console.error('Bingo2025 fetch error:', error);
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
-        <p className="text-red-500">Une erreur est survenue lors du chargement des données.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12 space-y-4">
           <h1 className="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
-            Mon Bingo 2025
+            {BINGO_DATA.title}
           </h1>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
-            Suivez l'évolution de mes résolutions pour 2025
+            {BINGO_DATA.subtitle}
           </p>
         </div>
 
         <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-8 max-w-3xl mx-auto mb-12">
           <div className="grid grid-cols-4 gap-3">
-            {resolutions.map((resolution) => (
+            {BINGO_DATA.grid.flat().map((item, index) => (
               <motion.div
-                key={resolution.id}
+                key={index}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
                   duration: 0.2,
+                  delay: index * 0.05,
                   ease: "easeOut",
                 }}
               >
@@ -70,10 +64,10 @@ export default function Bingo2025() {
                   className="p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 hover:bg-gray-50/50"
                 >
                   <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-2">
-                    {resolution.text}
+                    {item.text}
                   </p>
                   <p className="text-xs text-gray-400 italic">
-                    {resolution.status}
+                    {item.status}
                   </p>
                 </Card>
               </motion.div>
