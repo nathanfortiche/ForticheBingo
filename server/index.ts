@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Register routes first
+// Register routes first before any middleware
 const server = registerRoutes(app);
 
 // Log middleware
@@ -46,8 +46,10 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 
 async function setupServer() {
   if (app.get("env") === "development") {
+    // In development, we need to set up Vite's dev server
     await setupVite(app, server);
   } else {
+    // In production/serverless, we serve static files
     const publicPath = process.env.VERCEL 
       ? path.join(process.cwd(), 'dist', 'public')
       : path.resolve(__dirname, "public");
@@ -58,6 +60,7 @@ async function setupServer() {
       index: false
     }));
 
+    // Handle client-side routing for non-API routes
     app.get(/^(?!\/?api\/).+/, (_req, res) => {
       res.sendFile(path.join(publicPath, "index.html"), {
         headers: {

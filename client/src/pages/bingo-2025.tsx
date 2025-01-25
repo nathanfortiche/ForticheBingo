@@ -19,6 +19,8 @@ type ApiResponse = {
 export default function Bingo2025() {
   const { data: response, isLoading, error } = useQuery<ApiResponse>({
     queryKey: ["/api/admin4768932/resolutions"],
+    retry: 3,
+    retryDelay: 1000,
   });
 
   const resolutions = response?.data || [];
@@ -32,6 +34,7 @@ export default function Bingo2025() {
   }
 
   if (error) {
+    console.error('Bingo2025 fetch error:', error);
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
         <p className="text-red-500">Une erreur est survenue lors du chargement des données.</p>
