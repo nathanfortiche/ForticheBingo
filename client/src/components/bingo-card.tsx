@@ -83,10 +83,9 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
       className="bg-white rounded-xl shadow-xl p-8 max-w-3xl mx-auto"
     >
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-medium text-gray-900 tracking-tight mb-2">
-          Bingo 2024
+        <h2 className="text-3xl font-medium text-gray-900 tracking-tight">
+          Bingo 2025
         </h2>
-        <div className="h-[2px] w-12 bg-primary mx-auto opacity-50" />
       </div>
 
       <div
@@ -166,8 +165,8 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
       </div>
 
       <div className="text-center mt-8">
-        <p className="text-sm text-gray-500">
-          Cliquez sur une résolution pour ajouter un statut
+        <p className="text-xs text-gray-400">
+          Bingo fait sur nathanfortiche.com
         </p>
       </div>
     </div>
