@@ -26,7 +26,7 @@
       "handle": "filesystem"
     },
     {
-      "src": "/(admin4768932|bingo-2025)?",
+      "src": "/(bingo-2025)?",
       "dest": "/index.html"
     },
     {
