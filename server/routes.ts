@@ -9,7 +9,6 @@ export function registerRoutes(app: Express): Server {
 
   // Get all resolutions
   app.get("/api/admin4768932/resolutions", (_req, res) => {
-    // Mock data with user's personal objectives
     const mockResolutions = [
       { id: 1, text: "100k abonnés tiktok", status: "60,9k", position: 0 },
       { id: 2, text: "Créer une app/un site que des gens utilisent", status: "3 apps commencées, aucune publiée", position: 1 },
@@ -37,7 +36,7 @@ export function registerRoutes(app: Express): Server {
       const { text, status } = req.body;
       // Here we would update the resolution status
       // For now just return success since we're not using a database
-      res.json({ message: "Updated successfully" });
+      res.json({ message: "Updated successfully", data: { text, status } });
     } catch (error) {
       res.status(500).json({ message: "Error updating resolution" });
     }

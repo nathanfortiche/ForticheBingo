@@ -3,22 +3,42 @@
   "buildCommand": "npm run build",
   "builds": [
     {
-      "src": "package.json",
+      "src": "server/index.ts",
       "use": "@vercel/node"
+    },
+    {
+      "src": "client/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server/index.ts"
+      "dest": "server/index.ts"
     },
     {
-      "src": "/(.*\\.[a-z0-9]+$)",
-      "dest": "/dist/public/$1"
+      "src": "^/admin4768932/?$",
+      "dest": "dist/public/index.html"
+    },
+    {
+      "src": "^/bingo-2025/?$",
+      "dest": "dist/public/index.html"
+    },
+    {
+      "src": "^/static/(.*)",
+      "dest": "dist/public/static/$1"
+    },
+    {
+      "src": "^/assets/(.*)",
+      "dest": "dist/public/assets/$1"
+    },
+    {
+      "src": ".*\\.(js|css|ico|png|jpg|svg|json)$",
+      "dest": "dist/public/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/public/index.html"
+      "dest": "dist/public/index.html"
     }
   ],
   "env": {
