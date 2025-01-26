@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Resolution, GridSize } from "@/pages/home";
 import { Card } from "@/components/ui/card";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Shuffle } from "lucide-react";
 
 type Props = {
   resolutions: Resolution[];
@@ -39,9 +38,6 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
   const [selectedResolution, setSelectedResolution] = useState<Resolution | null>(null);
   const [currentStatus, setCurrentStatus] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isShuffling, setIsShuffling] = useState(false);
-  const [showPreview, setShowPreview] = useState(true); // Added state for preview
-
 
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
@@ -81,18 +77,6 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
     }
   };
 
-  const handleReshuffle = () => {
-    setIsShuffling(true);
-    setTimeout(() => {
-      setShuffledResolutions(shuffleArray([...shuffledResolutions]));
-      setIsShuffling(false);
-    }, 300); // Delay to allow exit animations to complete
-  };
-
-  const handleExport = () => {
-    // Add your export logic here
-  };
-
   return (
     <div
       id="bingo-card"
@@ -111,101 +95,73 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
           gridTemplateRows: `repeat(${rows}, 1fr)`,
         }}
       >
-        <AnimatePresence mode="popLayout">
-          {shuffledResolutions.slice(0, cellCount).map((resolution, index) => (
-            <Dialog
-              key={resolution.id}
-              open={isDialogOpen && selectedResolution?.id === resolution.id}
-              onOpenChange={(open) => {
-                setIsDialogOpen(open);
-                if (open) {
-                  setSelectedResolution(resolution);
-                  setCurrentStatus(statusMap[resolution.id] || "");
-                } else {
-                  setSelectedResolution(null);
-                  setCurrentStatus("");
-                }
-              }}
-            >
-              <DialogTrigger asChild>
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{
-                    duration: 0.2,
-                    ease: "easeOut",
-                  }}
+        {shuffledResolutions.slice(0, cellCount).map((resolution) => (
+          <Dialog 
+            key={resolution.id} 
+            open={isDialogOpen && selectedResolution?.id === resolution.id}
+            onOpenChange={(open) => {
+              setIsDialogOpen(open);
+              if (open) {
+                setSelectedResolution(resolution);
+                setCurrentStatus(statusMap[resolution.id] || "");
+              } else {
+                setSelectedResolution(null);
+                setCurrentStatus("");
+              }
+            }}
+          >
+            <DialogTrigger asChild>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.2,
+                  ease: "easeOut",
+                }}
+              >
+                <Card 
+                  className={`p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 cursor-pointer
+                    ${checkedCells.has(resolution.id) 
+                      ? 'bg-gray-50 border-primary/50' 
+                      : 'hover:bg-gray-50/50'}`}
+                  onClick={() => toggleCell(resolution.id)}
                 >
-                  <Card
-                    className={`p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 cursor-pointer
-                      ${checkedCells.has(resolution.id)
-                        ? 'bg-gray-50 border-primary/50'
-                        : 'hover:bg-gray-50/50'}`}
-                    onClick={() => toggleCell(resolution.id)}
-                  >
-                    <p className="text-sm md:text-base text-gray-600 leading-relaxed">
-                      {resolution.text}
+                  <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                    {resolution.text}
+                  </p>
+                  {statusMap[resolution.id] && (
+                    <p className="mt-2 text-xs text-gray-400 italic">
+                      {statusMap[resolution.id]}
                     </p>
-                    {statusMap[resolution.id] && (
-                      <p className="mt-2 text-xs text-gray-400 italic">
-                        {statusMap[resolution.id]}
-                      </p>
-                    )}
-                  </Card>
-                </motion.div>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Mise à jour du statut</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4 pt-4">
-                  <div className="space-y-2">
-                    <Label>Résolution</Label>
-                    <p className="text-sm text-gray-600">{resolution.text}</p>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="status">Statut actuel</Label>
-                    <Input
-                      id="status"
-                      value={currentStatus}
-                      onChange={(e) => setCurrentStatus(e.target.value)}
-                      placeholder="Ex: J'ai commencé à courir 2 fois par semaine"
-                    />
-                  </div>
-                  <Button onClick={handleStatusUpdate} className="w-full">
-                    Enregistrer le statut
-                  </Button>
+                  )}
+                </Card>
+              </motion.div>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Mise à jour du statut</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 pt-4">
+                <div className="space-y-2">
+                  <Label>Résolution</Label>
+                  <p className="text-sm text-gray-600">{resolution.text}</p>
                 </div>
-              </DialogContent>
-            </Dialog>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      <div className="flex justify-center gap-4 mt-8">
-        <Button
-          variant="outline"
-          onClick={() => setShowPreview(false)}
-          className="text-gray-600"
-        >
-          Modifier
-        </Button>
-        <Button
-          onClick={handleReshuffle}
-          variant="outline"
-          className="text-gray-600 px-3"
-          disabled={isShuffling}
-        >
-          <Shuffle className="h-4 w-4" />
-        </Button>
-        <Button
-          onClick={handleExport}
-          className="bg-gray-900 hover:bg-gray-800"
-        >
-          Télécharger
-        </Button>
+                <div className="space-y-2">
+                  <Label htmlFor="status">Statut actuel</Label>
+                  <Input
+                    id="status"
+                    value={currentStatus}
+                    onChange={(e) => setCurrentStatus(e.target.value)}
+                    placeholder="Ex: J'ai commencé à courir 2 fois par semaine"
+                  />
+                </div>
+                <Button onClick={handleStatusUpdate} className="w-full">
+                  Enregistrer le statut
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        ))}
       </div>
 
       <div className="text-center mt-8">
