@@ -12,8 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Shuffle } from "lucide-react"; // Assuming this is how you import the icon
-
 
 type Props = {
   resolutions: Resolution[];
@@ -47,14 +45,8 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
     setShuffledResolutions(shuffleArray(resolutions));
   }, [resolutions]);
 
-  const handleShuffle = () => {
-    setIsShuffling(true);
-    setTimeout(() => {
-      setShuffledResolutions(shuffleArray([...shuffledResolutions]));
-      setIsShuffling(false);
-      if (onShuffle) onShuffle();
-    }, 600); // Increased from 300ms to 600ms for smoother transition
-  };
+  const { rows, cols } = getGridDimensions(gridSize);
+  const cellCount = rows * cols;
 
   const getGridDimensions = (size: GridSize) => {
     switch (size) {
@@ -64,9 +56,6 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
       default: return { rows: 3, cols: 3 };
     }
   };
-
-  const { rows, cols } = getGridDimensions(gridSize);
-  const cellCount = rows * cols;
 
   const toggleCell = (id: string) => {
     const newCheckedCells = new Set(checkedCells);
@@ -101,21 +90,16 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
         </h2>
       </div>
 
-      <div className="flex justify-center mb-4"> {/* Added button container */}
-        <Button onClick={handleShuffle} className="mr-4">
-          <Shuffle className="h-5 w-5 mr-2" /> Shuffle
-        </Button> {/* Added Shuffle button */}
-      </div>
 
-
-      <div
+      <motion.div
         className={`grid gap-3`}
         style={{
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
         }}
+        layout
       >
-        {shuffledResolutions.slice(0, cellCount).map((resolution) => (
+        {shuffledResolutions.slice(0, cellCount).map((resolution, index) => (
           <Dialog 
             key={resolution.id} 
             open={isDialogOpen && selectedResolution?.id === resolution.id}
@@ -132,21 +116,28 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
           >
             <DialogTrigger asChild>
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{
-                  duration: 0.4, // Increased from 0.2 to 0.4
-                  ease: [0.4, 0, 0.2, 1], // Added custom easing for smoother animation
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ 
+                  opacity: 1, 
+                  scale: 1,
+                  transition: {
+                    duration: 0.6,
+                    delay: index * 0.05,
+                    ease: [0.4, 0, 0.2, 1]
+                  }
                 }}
-                style={{
-                  opacity: isShuffling ? 0 : 1,
-                  scale: isShuffling ? 0.95 : 1,
-                  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)", // Added smooth transition with custom easing
+                exit={{ opacity: 0, scale: 0.8 }}
+                whileHover={{ scale: 1.02 }}
+                transition={{
+                  layout: {
+                    duration: 0.6,
+                    ease: [0.4, 0, 0.2, 1]
+                  }
                 }}
               >
                 <Card 
-                  className={`p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 cursor-pointer
+                  className={`p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-colors duration-200 border-gray-100 cursor-pointer
                     ${checkedCells.has(resolution.id) 
                       ? 'bg-gray-50 border-primary/50' 
                       : 'hover:bg-gray-50/50'}`}
@@ -188,7 +179,7 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
             </DialogContent>
           </Dialog>
         ))}
-      </div>
+      </motion.div>
 
       <div className="text-center mt-8">
         <p className="text-xs text-gray-400">
