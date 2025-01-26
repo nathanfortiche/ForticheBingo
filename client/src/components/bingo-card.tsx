@@ -96,15 +96,6 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
         <h2 className="text-3xl font-medium text-gray-900 tracking-tight">
           Bingo 2025
         </h2>
-        <Button
-          onClick={handleReshuffle}
-          variant="outline"
-          className="mt-4 text-gray-600 print:hidden export-hide"
-          disabled={isShuffling}
-        >
-          <Shuffle className="mr-2 h-4 w-4" />
-          Mélanger
-        </Button>
       </div>
 
       <div
@@ -188,6 +179,14 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
       </div>
 
       <div className="text-center mt-8">
+        <Button
+          onClick={handleReshuffle}
+          variant="outline"
+          className="mt-4 text-gray-600 print:hidden export-hide"
+          disabled={isShuffling}
+        >
+          <Shuffle className="mr-2 h-4 w-4" />
+        </Button>
         <p className="text-xs text-gray-400">
           Bingo fait sur nathanfortiche.com
         </p>
