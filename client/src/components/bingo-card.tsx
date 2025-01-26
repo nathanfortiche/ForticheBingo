@@ -42,6 +42,7 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
   const [isShuffling, setIsShuffling] = useState(false);
   const [showPreview, setShowPreview] = useState(true); // Added state for preview
 
+
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
   }, [resolutions]);
@@ -90,9 +91,7 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
 
   const handleExport = () => {
     // Add your export logic here
-    console.log("Exporting Bingo Card data...");
   };
-
 
   return (
     <div
