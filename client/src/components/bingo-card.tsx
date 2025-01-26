@@ -53,7 +53,7 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
       setShuffledResolutions(shuffleArray([...shuffledResolutions]));
       setIsShuffling(false);
       if (onShuffle) onShuffle();
-    }, 300); // Wait for exit animation
+    }, 600); // Increased from 300ms to 600ms for smoother transition
   };
 
   const getGridDimensions = (size: GridSize) => {
@@ -136,12 +136,13 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{
-                  duration: 0.2,
-                  ease: "easeOut",
+                  duration: 0.4, // Increased from 0.2 to 0.4
+                  ease: [0.4, 0, 0.2, 1], // Added custom easing for smoother animation
                 }}
                 style={{
                   opacity: isShuffling ? 0 : 1,
-                  transition: "opacity 0.3s ease-out",
+                  scale: isShuffling ? 0.95 : 1,
+                  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)", // Added smooth transition with custom easing
                 }}
               >
                 <Card 
