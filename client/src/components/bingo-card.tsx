@@ -12,10 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Shuffle } from "lucide-react"; // Assuming this is how you import the icon
+
 
 type Props = {
   resolutions: Resolution[];
   gridSize: GridSize;
+  onShuffle?: () => void;
 };
 
 type StatusMap = {
@@ -31,17 +34,27 @@ function shuffleArray<T>(array: T[]): T[] {
   return newArray;
 }
 
-export default function BingoCard({ resolutions, gridSize }: Props) {
+export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
   const [shuffledResolutions, setShuffledResolutions] = useState<Resolution[]>([]);
   const [checkedCells, setCheckedCells] = useState<Set<string>>(new Set());
   const [statusMap, setStatusMap] = useState<StatusMap>({});
   const [selectedResolution, setSelectedResolution] = useState<Resolution | null>(null);
   const [currentStatus, setCurrentStatus] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
 
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
   }, [resolutions]);
+
+  const handleShuffle = () => {
+    setIsShuffling(true);
+    setTimeout(() => {
+      setShuffledResolutions(shuffleArray([...shuffledResolutions]));
+      setIsShuffling(false);
+      if (onShuffle) onShuffle();
+    }, 300); // Wait for exit animation
+  };
 
   const getGridDimensions = (size: GridSize) => {
     switch (size) {
@@ -88,6 +101,13 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
         </h2>
       </div>
 
+      <div className="flex justify-center mb-4"> {/* Added button container */}
+        <Button onClick={handleShuffle} className="mr-4">
+          <Shuffle className="h-5 w-5 mr-2" /> Shuffle
+        </Button> {/* Added Shuffle button */}
+      </div>
+
+
       <div
         className={`grid gap-3`}
         style={{
@@ -114,9 +134,14 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
                 transition={{
                   duration: 0.2,
                   ease: "easeOut",
+                }}
+                style={{
+                  opacity: isShuffling ? 0 : 1,
+                  transition: "opacity 0.3s ease-out",
                 }}
               >
                 <Card 

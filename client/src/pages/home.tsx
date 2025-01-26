@@ -4,6 +4,8 @@ import BingoCard from "@/components/bingo-card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import html2canvas from "html2canvas";
+import { Shuffle } from "lucide-react";
+import { motion } from "framer-motion";
 
 export type Resolution = {
   id: string;
@@ -16,6 +18,7 @@ export default function Home() {
   const [resolutions, setResolutions] = useState<Resolution[]>([]);
   const [gridSize, setGridSize] = useState<GridSize>("3x3");
   const [showPreview, setShowPreview] = useState(false);
+  const [shuffleCount, setShuffleCount] = useState(0);
   const { toast } = useToast();
 
   const handleExport = async () => {
@@ -46,6 +49,14 @@ export default function Home() {
     }
   };
 
+  const handleShuffle = () => {
+    setShuffleCount(prev => prev + 1);
+    toast({
+      title: "Bingo mélangé",
+      description: "Les objectifs ont été réorganisés aléatoirement",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 py-16">
@@ -69,8 +80,10 @@ export default function Home() {
         ) : (
           <div className="max-w-3xl mx-auto">
             <BingoCard
+              key={shuffleCount}
               resolutions={resolutions}
               gridSize={gridSize}
+              onShuffle={handleShuffle}
             />
             <div className="flex justify-center gap-4 mt-8">
               <Button
@@ -80,6 +93,19 @@ export default function Home() {
               >
                 Modifier
               </Button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  variant="outline"
+                  onClick={handleShuffle}
+                  className="bg-white hover:bg-gray-50"
+                  size="icon"
+                >
+                  <Shuffle className="h-4 w-4" />
+                </Button>
+              </motion.div>
               <Button
                 onClick={handleExport}
                 className="bg-gray-900 hover:bg-gray-800"
