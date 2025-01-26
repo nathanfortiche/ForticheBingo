@@ -32,6 +32,15 @@ function shuffleArray<T>(array: T[]): T[] {
   return newArray;
 }
 
+const getGridDimensions = (size: GridSize) => {
+  switch (size) {
+    case "3x3": return { rows: 3, cols: 3 };
+    case "3x4": return { rows: 3, cols: 4 };
+    case "4x4": return { rows: 4, cols: 4 };
+    default: return { rows: 3, cols: 3 };
+  }
+};
+
 export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
   const [shuffledResolutions, setShuffledResolutions] = useState<Resolution[]>([]);
   const [checkedCells, setCheckedCells] = useState<Set<string>>(new Set());
@@ -39,7 +48,6 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
   const [selectedResolution, setSelectedResolution] = useState<Resolution | null>(null);
   const [currentStatus, setCurrentStatus] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isShuffling, setIsShuffling] = useState(false);
 
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
@@ -47,15 +55,6 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
 
   const { rows, cols } = getGridDimensions(gridSize);
   const cellCount = rows * cols;
-
-  const getGridDimensions = (size: GridSize) => {
-    switch (size) {
-      case "3x3": return { rows: 3, cols: 3 };
-      case "3x4": return { rows: 3, cols: 4 };
-      case "4x4": return { rows: 4, cols: 4 };
-      default: return { rows: 3, cols: 3 };
-    }
-  };
 
   const toggleCell = (id: string) => {
     const newCheckedCells = new Set(checkedCells);
@@ -89,7 +88,6 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
           Bingo 2025
         </h2>
       </div>
-
 
       <motion.div
         className={`grid gap-3`}
