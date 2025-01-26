@@ -4,7 +4,6 @@ import BingoCard from "@/components/bingo-card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import html2canvas from "html2canvas";
-import { Shuffle } from "lucide-react";
 
 export type Resolution = {
   id: string;
@@ -80,21 +79,6 @@ export default function Home() {
                 className="text-gray-600"
               >
                 Modifier
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  const element = document.querySelector("#bingo-card .grid") as HTMLElement;
-                  if (element) {
-                    const items = Array.from(element.children);
-                    const shuffled = items.sort(() => Math.random() - 0.5);
-                    shuffled.forEach(item => element.appendChild(item));
-                  }
-                }}
-                size="icon"
-                className="w-10 h-10 export-hide"
-              >
-                <Shuffle className="h-4 w-4" />
               </Button>
               <Button
                 onClick={handleExport}
