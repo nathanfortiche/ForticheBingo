@@ -84,7 +84,7 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
     setTimeout(() => {
       setShuffledResolutions(shuffleArray([...shuffledResolutions]));
       setIsShuffling(false);
-    }, 300); // Delay to allow exit animations to complete
+    }, 300);
   };
 
   return (
@@ -99,7 +99,7 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
         <Button
           onClick={handleReshuffle}
           variant="outline"
-          className="mt-4 text-gray-600"
+          className="mt-4 text-gray-600 print:hidden export-hide"
           disabled={isShuffling}
         >
           <Shuffle className="mr-2 h-4 w-4" />
