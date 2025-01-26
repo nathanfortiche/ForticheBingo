@@ -10,14 +10,14 @@ const BINGO_DATA = {
     [
       { text: "100k tiktok", status: "60,9k" },
       { text: "Créer un site que des gens utilisent", status: "3 apps commencées, aucune publiée" },
-      { text: "115kg DC", status: "100kg (juillet 2024)" },
+      { text: "115kg Développé Couché", status: "100kg (juillet 2024)" },
       { text: "Collab avec un musée", status: "Pas commencé" }
     ],
     [
       { text: "130 séances de sport", status: "8" },
-      { text: "Danse", status: "Pas commencé" },
-      { text: "120 films", status: "3" },
-      { text: "10 livres", status: "0" }
+      { text: Apprendre des pas de danse", status: "Pas commencé" },
+      { text: "120 films vus", status: "7" },
+      { text: "10 livres lus", status: "0" }
     ],
     [
       { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation" },
