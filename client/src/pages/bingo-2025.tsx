@@ -15,7 +15,7 @@ const BINGO_DATA = {
     ],
     [
       { text: "130 séances de sport", status: "8" },
-      { text: Apprendre des pas de danse", status: "Pas commencé" },
+      { text: "Apprendre des pas de danse", status: "Pas commencé" },
       { text: "120 films vus", status: "7" },
       { text: "10 livres lus", status: "0" }
     ],
