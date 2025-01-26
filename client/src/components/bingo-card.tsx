@@ -40,6 +40,7 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
   const [currentStatus, setCurrentStatus] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isShuffling, setIsShuffling] = useState(false);
+  const [showPreview, setShowPreview] = useState(true); // Added state for preview
 
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
@@ -87,6 +88,12 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
     }, 300); // Delay to allow exit animations to complete
   };
 
+  const handleExport = () => {
+    // Add your export logic here
+    console.log("Exporting Bingo Card data...");
+  };
+
+
   return (
     <div
       id="bingo-card"
@@ -96,15 +103,6 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
         <h2 className="text-3xl font-medium text-gray-900 tracking-tight">
           Bingo 2025
         </h2>
-        <Button
-          onClick={handleReshuffle}
-          variant="outline"
-          className="mt-4 text-gray-600"
-          disabled={isShuffling}
-        >
-          <Shuffle className="mr-2 h-4 w-4" />
-          Mélanger
-        </Button>
       </div>
 
       <div
@@ -116,8 +114,8 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
       >
         <AnimatePresence mode="popLayout">
           {shuffledResolutions.slice(0, cellCount).map((resolution, index) => (
-            <Dialog 
-              key={resolution.id} 
+            <Dialog
+              key={resolution.id}
               open={isDialogOpen && selectedResolution?.id === resolution.id}
               onOpenChange={(open) => {
                 setIsDialogOpen(open);
@@ -141,10 +139,10 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
                     ease: "easeOut",
                   }}
                 >
-                  <Card 
+                  <Card
                     className={`p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 cursor-pointer
-                      ${checkedCells.has(resolution.id) 
-                        ? 'bg-gray-50 border-primary/50' 
+                      ${checkedCells.has(resolution.id)
+                        ? 'bg-gray-50 border-primary/50'
                         : 'hover:bg-gray-50/50'}`}
                     onClick={() => toggleCell(resolution.id)}
                   >
@@ -185,6 +183,30 @@ export default function BingoCard({ resolutions, gridSize }: Props) {
             </Dialog>
           ))}
         </AnimatePresence>
+      </div>
+
+      <div className="flex justify-center gap-4 mt-8">
+        <Button
+          variant="outline"
+          onClick={() => setShowPreview(false)}
+          className="text-gray-600"
+        >
+          Modifier
+        </Button>
+        <Button
+          onClick={handleReshuffle}
+          variant="outline"
+          className="text-gray-600 px-3"
+          disabled={isShuffling}
+        >
+          <Shuffle className="h-4 w-4" />
+        </Button>
+        <Button
+          onClick={handleExport}
+          className="bg-gray-900 hover:bg-gray-800"
+        >
+          Télécharger
+        </Button>
       </div>
 
       <div className="text-center mt-8">
