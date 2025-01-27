@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Resolution, GridSize } from "@/pages/home";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { Check } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -49,9 +50,31 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
   const [currentStatus, setCurrentStatus] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  // Load saved progress from localStorage on mount
+  useEffect(() => {
+    const savedCheckedCells = localStorage.getItem('bingoCheckedCells');
+    const savedStatusMap = localStorage.getItem('bingoStatusMap');
+
+    if (savedCheckedCells) {
+      setCheckedCells(new Set(JSON.parse(savedCheckedCells)));
+    }
+    if (savedStatusMap) {
+      setStatusMap(JSON.parse(savedStatusMap));
+    }
+  }, []);
+
   useEffect(() => {
     setShuffledResolutions(shuffleArray(resolutions));
   }, [resolutions]);
+
+  // Save progress to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('bingoCheckedCells', JSON.stringify(Array.from(checkedCells)));
+  }, [checkedCells]);
+
+  useEffect(() => {
+    localStorage.setItem('bingoStatusMap', JSON.stringify(statusMap));
+  }, [statusMap]);
 
   const { rows, cols } = getGridDimensions(gridSize);
   const cellCount = rows * cols;
@@ -81,7 +104,7 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
   return (
     <div
       id="bingo-card"
-      className="bg-white rounded-xl shadow-xl p-8 max-w-3xl mx-auto"
+      className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto"
     >
       <div className="text-center mb-8">
         <h2 className="text-3xl font-medium text-gray-900 tracking-tight">
@@ -90,7 +113,7 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
       </div>
 
       <motion.div
-        className={`grid gap-3`}
+        className={`grid gap-1 md:gap-3`}
         style={{
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
@@ -135,17 +158,22 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
                 }}
               >
                 <Card 
-                  className={`p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-colors duration-200 border-gray-100 cursor-pointer
+                  className={`relative h-full p-1.5 md:p-4 min-h-[70px] sm:min-h-[90px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 cursor-pointer
                     ${checkedCells.has(resolution.id) 
-                      ? 'bg-gray-50 border-primary/50' 
+                      ? 'bg-green-50 border-green-200' 
                       : 'hover:bg-gray-50/50'}`}
                   onClick={() => toggleCell(resolution.id)}
                 >
-                  <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                  {checkedCells.has(resolution.id) && (
+                    <div className="absolute top-1 right-1 md:top-2 md:right-2">
+                      <Check className="w-3 h-3 md:w-4 md:h-4 text-green-500" />
+                    </div>
+                  )}
+                  <p className="text-[10px] sm:text-sm md:text-base text-gray-600 leading-tight md:leading-relaxed mb-1 md:mb-2">
                     {resolution.text}
                   </p>
                   {statusMap[resolution.id] && (
-                    <p className="mt-2 text-xs text-gray-400 italic">
+                    <p className="text-[8px] md:text-xs text-gray-400 italic">
                       {statusMap[resolution.id]}
                     </p>
                   )}
