@@ -37,18 +37,18 @@ const BINGO_DATA = {
 export default function Bingo2025() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12 space-y-4">
-          <h1 className="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
+      <div className="container mx-auto px-4 py-8 md:py-16">
+        <div className="text-center mb-8 md:mb-12 space-y-3 md:space-y-4">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 tracking-tight">
             {BINGO_DATA.title}
           </h1>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-500 max-w-2xl mx-auto text-base md:text-lg">
             {BINGO_DATA.subtitle}
           </p>
         </div>
 
-        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-8 max-w-3xl mx-auto mb-12">
-          <div className="grid grid-cols-4 gap-3">
+        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-4 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12">
+          <div className="grid grid-cols-4 gap-1.5 md:gap-3">
             {BINGO_DATA.grid.flat().map((item, index) => (
               <motion.div
                 key={index}
@@ -61,12 +61,12 @@ export default function Bingo2025() {
                 }}
               >
                 <Card 
-                  className="p-4 min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 hover:bg-gray-50/50"
+                  className="p-2 md:p-4 min-h-[80px] sm:min-h-[100px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 hover:bg-gray-50/50"
                 >
-                  <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-2">
+                  <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-tight md:leading-relaxed mb-1 md:mb-2">
                     {item.text}
                   </p>
-                  <p className="text-xs text-gray-400 italic">
+                  <p className="text-[10px] md:text-xs text-gray-400 italic">
                     {item.status}
                   </p>
                 </Card>
@@ -76,7 +76,7 @@ export default function Bingo2025() {
         </div>
 
         <div className="text-center">
-          <p className="text-gray-600 mb-6">
+          <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
             Envie de créer votre propre bingo des résolutions ?
           </p>
           <Link href="/">
