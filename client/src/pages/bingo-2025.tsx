@@ -47,8 +47,8 @@ export default function Bingo2025() {
           </p>
         </div>
 
-        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-4 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12">
-          <div className="grid grid-cols-4 gap-1.5 md:gap-3">
+        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12">
+          <div className="grid grid-cols-4 gap-1 md:gap-3 auto-rows-fr">
             {BINGO_DATA.grid.flat().map((item, index) => (
               <motion.div
                 key={index}
@@ -61,12 +61,12 @@ export default function Bingo2025() {
                 }}
               >
                 <Card 
-                  className="p-2 md:p-4 min-h-[80px] sm:min-h-[100px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 hover:bg-gray-50/50"
+                  className="h-full p-1.5 md:p-4 min-h-[70px] sm:min-h-[90px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 hover:bg-gray-50/50"
                 >
-                  <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-tight md:leading-relaxed mb-1 md:mb-2">
+                  <p className="text-[10px] sm:text-sm md:text-base text-gray-600 leading-tight md:leading-relaxed mb-1 md:mb-2">
                     {item.text}
                   </p>
-                  <p className="text-[10px] md:text-xs text-gray-400 italic">
+                  <p className="text-[8px] md:text-xs text-gray-400 italic">
                     {item.status}
                   </p>
                 </Card>
