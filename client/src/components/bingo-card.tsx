@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type Props = {
   resolutions: Resolution[];
@@ -79,6 +80,20 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
   const { rows, cols } = getGridDimensions(gridSize);
   const cellCount = rows * cols;
 
+  const handleStatusUpdate = () => {
+    if (selectedResolution) {
+      if (currentStatus.trim()) {
+        setStatusMap(prev => ({
+          ...prev,
+          [selectedResolution.id]: currentStatus.trim()
+        }));
+      }
+      setSelectedResolution(null);
+      setCurrentStatus("");
+      setIsDialogOpen(false);
+    }
+  };
+
   const toggleCell = (id: string) => {
     const newCheckedCells = new Set(checkedCells);
     if (newCheckedCells.has(id)) {
@@ -87,18 +102,6 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
       newCheckedCells.add(id);
     }
     setCheckedCells(newCheckedCells);
-  };
-
-  const handleStatusUpdate = () => {
-    if (selectedResolution && currentStatus.trim()) {
-      setStatusMap(prev => ({
-        ...prev,
-        [selectedResolution.id]: currentStatus.trim()
-      }));
-      setSelectedResolution(null);
-      setCurrentStatus("");
-      setIsDialogOpen(false);
-    }
   };
 
   return (
@@ -162,7 +165,6 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
                     ${checkedCells.has(resolution.id) 
                       ? 'bg-green-50 border-green-200' 
                       : 'hover:bg-gray-50/50'}`}
-                  onClick={() => toggleCell(resolution.id)}
                 >
                   {checkedCells.has(resolution.id) && (
                     <div className="absolute top-1 right-1 md:top-2 md:right-2">
@@ -182,13 +184,28 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Mise à jour du statut</DialogTitle>
+                <DialogTitle>Mise à jour de l'objectif</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 pt-4">
                 <div className="space-y-2">
                   <Label>Résolution</Label>
                   <p className="text-sm text-gray-600">{resolution.text}</p>
                 </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox 
+                    id="completed" 
+                    checked={checkedCells.has(resolution.id)}
+                    onCheckedChange={() => toggleCell(resolution.id)}
+                  />
+                  <label
+                    htmlFor="completed"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Objectif atteint
+                  </label>
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="status">Statut actuel</Label>
                   <Input
@@ -199,7 +216,7 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
                   />
                 </div>
                 <Button onClick={handleStatusUpdate} className="w-full">
-                  Enregistrer le statut
+                  Enregistrer
                 </Button>
               </div>
             </DialogContent>
