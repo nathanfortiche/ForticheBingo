@@ -55,14 +55,12 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
   useEffect(() => {
     const savedOrder = localStorage.getItem('bingoShuffledOrder');
     if (savedOrder) {
-      // If we have a saved order, recreate the shuffled array using the saved order
       const orderMap = JSON.parse(savedOrder);
       const orderedResolutions = [...resolutions].sort((a, b) => 
         (orderMap[a.id] || 0) - (orderMap[b.id] || 0)
       );
       setShuffledResolutions(orderedResolutions);
     } else {
-      // If no saved order, create a new shuffled array
       const shuffled = shuffleArray(resolutions);
       const orderMap = Object.fromEntries(
         shuffled.map((res, index) => [res.id, index])
@@ -96,28 +94,6 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
     }
   }, [checkedCells, statusMap]);
 
-  // Handle shuffle button click
-  useEffect(() => {
-    if (onShuffle) {
-      const handleShuffleClick = () => {
-        const shuffled = shuffleArray(shuffledResolutions);
-        const orderMap = Object.fromEntries(
-          shuffled.map((res, index) => [res.id, index])
-        );
-        localStorage.setItem('bingoShuffledOrder', JSON.stringify(orderMap));
-        setShuffledResolutions(shuffled);
-      };
-
-      // Subscribe to parent's shuffle event.  This part is questionable as it unsubscribes immediately.  Likely needs refinement based on how `onShuffle` is used.
-      const unsub = onShuffle;
-      unsub();
-
-      return () => {
-        if (typeof unsub === 'function') unsub();
-      };
-    }
-  }, [onShuffle, shuffledResolutions]);
-
   const { rows, cols } = getGridDimensions(gridSize);
   const cellCount = rows * cols;
 
@@ -148,6 +124,23 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
     setCheckedCells(newCheckedCells);
   };
 
+  // Handle shuffle from parent
+  useEffect(() => {
+    if (onShuffle && shuffledResolutions.length > 0) {
+      const handleShuffleClick = () => {
+        const shuffled = shuffleArray([...shuffledResolutions]);
+        const orderMap = Object.fromEntries(
+          shuffled.map((res, index) => [res.id, index])
+        );
+        localStorage.setItem('bingoShuffledOrder', JSON.stringify(orderMap));
+        setShuffledResolutions(shuffled);
+      };
+
+      // Set the callback
+      onShuffle = handleShuffleClick;
+    }
+  }, [onShuffle, shuffledResolutions]);
+
   return (
     <div
       id="bingo-card"
@@ -159,13 +152,12 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
         </h2>
       </div>
 
-      <motion.div
+      <div
         className={`grid gap-1 md:gap-3`}
         style={{
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
         }}
-        layout
       >
         {shuffledResolutions.slice(0, cellCount).map((resolution, index) => (
           <Dialog 
@@ -266,7 +258,7 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
             </DialogContent>
           </Dialog>
         ))}
-      </motion.div>
+      </div>
 
       <div className="text-center mt-8">
         <p className="text-xs text-gray-400">
