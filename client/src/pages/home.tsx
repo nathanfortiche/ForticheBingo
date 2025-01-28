@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ResolutionForm from "@/components/resolution-form";
 import BingoCard from "@/components/bingo-card";
 import { Button } from "@/components/ui/button";
@@ -14,12 +14,41 @@ export type Resolution = {
 
 export type GridSize = "3x3" | "3x4" | "4x4";
 
+type SavedBingoState = {
+  resolutions: Resolution[];
+  gridSize: GridSize;
+  showPreview: boolean;
+};
+
 export default function Home() {
   const [resolutions, setResolutions] = useState<Resolution[]>([]);
   const [gridSize, setGridSize] = useState<GridSize>("3x3");
   const [showPreview, setShowPreview] = useState(false);
   const [shuffleCount, setShuffleCount] = useState(0);
   const { toast } = useToast();
+
+  // Load saved state on mount
+  useEffect(() => {
+    const savedState = localStorage.getItem('bingoState');
+    if (savedState) {
+      const { resolutions: savedResolutions, gridSize: savedGridSize, showPreview: savedShowPreview } = JSON.parse(savedState) as SavedBingoState;
+      setResolutions(savedResolutions);
+      setGridSize(savedGridSize);
+      setShowPreview(savedShowPreview);
+    }
+  }, []);
+
+  // Save state whenever it changes
+  useEffect(() => {
+    if (resolutions.length > 0) {
+      const stateToSave: SavedBingoState = {
+        resolutions,
+        gridSize,
+        showPreview,
+      };
+      localStorage.setItem('bingoState', JSON.stringify(stateToSave));
+    }
+  }, [resolutions, gridSize, showPreview]);
 
   const handleExport = async () => {
     const element = document.getElementById("bingo-card");
@@ -57,6 +86,20 @@ export default function Home() {
     });
   };
 
+  const handleReset = () => {
+    localStorage.removeItem('bingoState');
+    localStorage.removeItem('bingoCheckedCells');
+    localStorage.removeItem('bingoStatusMap');
+    setResolutions([]);
+    setGridSize("3x3");
+    setShowPreview(false);
+    setShuffleCount(0);
+    toast({
+      title: "Bingo réinitialisé",
+      description: "Vous pouvez maintenant créer un nouveau bingo",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 py-16">
@@ -88,10 +131,10 @@ export default function Home() {
             <div className="flex justify-center gap-4 mt-8">
               <Button
                 variant="outline"
-                onClick={() => setShowPreview(false)}
+                onClick={handleReset}
                 className="text-gray-600"
               >
-                Modifier
+                Nouveau bingo
               </Button>
               <motion.div
                 whileHover={{ scale: 1.05 }}
