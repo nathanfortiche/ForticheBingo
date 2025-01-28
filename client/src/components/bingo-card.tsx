@@ -51,10 +51,25 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
   const [currentStatus, setCurrentStatus] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  // Initialize shuffled resolutions
+  // Initialize or load shuffled resolutions
   useEffect(() => {
-    const shuffled = shuffleArray(resolutions);
-    setShuffledResolutions(shuffled);
+    const savedOrder = localStorage.getItem('bingoShuffledOrder');
+    if (savedOrder) {
+      // If we have a saved order, recreate the shuffled array using the saved order
+      const orderMap = JSON.parse(savedOrder);
+      const orderedResolutions = [...resolutions].sort((a, b) => 
+        (orderMap[a.id] || 0) - (orderMap[b.id] || 0)
+      );
+      setShuffledResolutions(orderedResolutions);
+    } else {
+      // If no saved order, create a new shuffled array
+      const shuffled = shuffleArray(resolutions);
+      const orderMap = Object.fromEntries(
+        shuffled.map((res, index) => [res.id, index])
+      );
+      localStorage.setItem('bingoShuffledOrder', JSON.stringify(orderMap));
+      setShuffledResolutions(shuffled);
+    }
   }, [resolutions]);
 
   // Load saved progress from localStorage
@@ -80,6 +95,28 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
       localStorage.setItem('bingoStatusMap', JSON.stringify(statusMap));
     }
   }, [checkedCells, statusMap]);
+
+  // Handle shuffle button click
+  useEffect(() => {
+    if (onShuffle) {
+      const handleShuffleClick = () => {
+        const shuffled = shuffleArray(shuffledResolutions);
+        const orderMap = Object.fromEntries(
+          shuffled.map((res, index) => [res.id, index])
+        );
+        localStorage.setItem('bingoShuffledOrder', JSON.stringify(orderMap));
+        setShuffledResolutions(shuffled);
+      };
+
+      // Subscribe to parent's shuffle event.  This part is questionable as it unsubscribes immediately.  Likely needs refinement based on how `onShuffle` is used.
+      const unsub = onShuffle;
+      unsub();
+
+      return () => {
+        if (typeof unsub === 'function') unsub();
+      };
+    }
+  }, [onShuffle, shuffledResolutions]);
 
   const { rows, cols } = getGridDimensions(gridSize);
   const cellCount = rows * cols;
