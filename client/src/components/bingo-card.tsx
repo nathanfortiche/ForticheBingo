@@ -51,43 +51,50 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
   const [currentStatus, setCurrentStatus] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  // Load saved progress from localStorage on mount
+  // Initialize shuffled resolutions
+  useEffect(() => {
+    const shuffled = shuffleArray(resolutions);
+    setShuffledResolutions(shuffled);
+  }, [resolutions]);
+
+  // Load saved progress from localStorage
   useEffect(() => {
     const savedCheckedCells = localStorage.getItem('bingoCheckedCells');
     const savedStatusMap = localStorage.getItem('bingoStatusMap');
 
     if (savedCheckedCells) {
-      setCheckedCells(new Set(JSON.parse(savedCheckedCells)));
+      const parsedCells = JSON.parse(savedCheckedCells);
+      setCheckedCells(new Set(parsedCells));
     }
-    if (savedStatusMap) {
-      setStatusMap(JSON.parse(savedStatusMap));
-    }
-  }, []);
 
-  useEffect(() => {
-    setShuffledResolutions(shuffleArray(resolutions));
-  }, [resolutions]);
+    if (savedStatusMap) {
+      const parsedStatusMap = JSON.parse(savedStatusMap);
+      setStatusMap(parsedStatusMap);
+    }
+  }, []); // Only run once on mount
 
   // Save progress to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('bingoCheckedCells', JSON.stringify(Array.from(checkedCells)));
-  }, [checkedCells]);
-
-  useEffect(() => {
-    localStorage.setItem('bingoStatusMap', JSON.stringify(statusMap));
-  }, [statusMap]);
+    if (checkedCells.size > 0 || Object.keys(statusMap).length > 0) {
+      localStorage.setItem('bingoCheckedCells', JSON.stringify(Array.from(checkedCells)));
+      localStorage.setItem('bingoStatusMap', JSON.stringify(statusMap));
+    }
+  }, [checkedCells, statusMap]);
 
   const { rows, cols } = getGridDimensions(gridSize);
   const cellCount = rows * cols;
 
   const handleStatusUpdate = () => {
     if (selectedResolution) {
+      const newStatusMap = { ...statusMap };
+
       if (currentStatus.trim()) {
-        setStatusMap(prev => ({
-          ...prev,
-          [selectedResolution.id]: currentStatus.trim()
-        }));
+        newStatusMap[selectedResolution.id] = currentStatus.trim();
+      } else {
+        delete newStatusMap[selectedResolution.id];
       }
+
+      setStatusMap(newStatusMap);
       setSelectedResolution(null);
       setCurrentStatus("");
       setIsDialogOpen(false);
