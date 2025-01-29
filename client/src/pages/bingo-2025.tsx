@@ -26,7 +26,7 @@ const BINGO_DATA = {
       { text: "100kg squat", status: "80kg (janv 2025)" }
     ],
     [
-      { text: "20k insta", status: "9967" },
+      { text: "20k insta", status: "10.1k" },
       { text: "Passer le permis", status: "3 échecs, j'aiplus le code mdr" },
       { text: "5 nouveaux decks MTG", status: "2 en cours" },
       { text: "Diamant SoloQ sur LoL", status: "Emeraude 3" }
