@@ -29,7 +29,7 @@ const formSchema = z.object({
       text: z.string().max(50, "50 caractères maximum"),
     })
   ).min(9, "Minimum 9 objectifs requis"),
-  gridSize: z.enum(["3x3", "3x4", "4x4"]),
+  gridSize: z.enum(["3x3", "3x4", "4x4", "5x5"]),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -53,13 +53,13 @@ export default function ResolutionForm({ onSubmit }: Props) {
       case "3x3": return 9;
       case "3x4": return 12;
       case "4x4": return 16;
+      case "5x5": return 25;
       default: return 9;
     }
   };
   const minResolutions = getMinResolutions(gridSize);
 
   const handleFormSubmit = (data: FormData) => {
-    // Replace empty resolutions with "Case gratuite"
     const filledResolutions = {
       ...data,
       resolutions: data.resolutions.map(resolution => ({
@@ -70,7 +70,6 @@ export default function ResolutionForm({ onSubmit }: Props) {
     onSubmit(filledResolutions);
   };
 
-  // Update form when grid size changes
   const handleGridSizeChange = (newSize: GridSize) => {
     const requiredCount = getMinResolutions(newSize);
     const currentResolutions = form.getValues("resolutions");
@@ -109,6 +108,7 @@ export default function ResolutionForm({ onSubmit }: Props) {
                       <SelectItem value="3x3">3 × 3 (9 objectifs)</SelectItem>
                       <SelectItem value="3x4">3 × 4 (12 objectifs)</SelectItem>
                       <SelectItem value="4x4">4 × 4 (16 objectifs)</SelectItem>
+                      <SelectItem value="5x5">5 × 5 (25 objectifs)</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormItem>

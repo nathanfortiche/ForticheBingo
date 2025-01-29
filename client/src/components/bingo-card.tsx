@@ -39,6 +39,7 @@ const getGridDimensions = (size: GridSize) => {
     case "3x3": return { rows: 3, cols: 3 };
     case "3x4": return { rows: 3, cols: 4 };
     case "4x4": return { rows: 4, cols: 4 };
+    case "5x5": return { rows: 5, cols: 5 };
     default: return { rows: 3, cols: 3 };
   }
 };

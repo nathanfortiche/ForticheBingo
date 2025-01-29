@@ -12,7 +12,7 @@ export type Resolution = {
   text: string;
 };
 
-export type GridSize = "3x3" | "3x4" | "4x4";
+export type GridSize = "3x3" | "3x4" | "4x4" | "5x5";
 
 type SavedBingoState = {
   resolutions: Resolution[];
