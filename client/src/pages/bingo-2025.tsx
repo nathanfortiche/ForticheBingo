@@ -9,27 +9,27 @@ const BINGO_DATA = {
   grid: [
     [
       { text: "100k tiktok", status: "60,8k" },
-      { text: "Créer un site que des gens utilisent", status: "1 publié" },
+      { text: "Créer un site que des gens utilisent", status: "1 publié (celui-ci)" },
       { text: "115kg Développé Couché", status: "100kg (juillet 2024)" },
       { text: "Collab avec un musée", status: "Pas commencé" }
     ],
     [
-      { text: "130 séances de sport", status: "8" },
+      { text: "130 séances de sport", status: "12" },
       { text: "Apprendre des pas de danse", status: "Pas commencé" },
-      { text: "120 films vus", status: "8" },
+      { text: "120 films vus", status: "9" },
       { text: "10 livres finis", status: "2 en cours" }
     ],
     [
       { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation" },
       { text: "Faire/Planifier un voyage vers un pote expat", status: "Pas commencé" },
       { text: "Faire une vidéo YT quali (20+min)", status: "Pas commencé" },
-      { text: "100kg squat", status: "80kg (janv 2025)" }
+      { text: "100kg squat", status: "85kg (janv 2025)" }
     ],
     [
       { text: "20k insta", status: "10k" },
       { text: "Passer le permis", status: "3 échecs, j'aiplus le code mdr" },
       { text: "5 nouveaux decks MTG", status: "2 en cours" },
-      { text: "Diamant SoloQ sur LoL", status: "Emeraude 3" }
+      { text: "Diamant SoloQ sur LoL", status: "Emeraude 4" }
     ]
   ]
 };
