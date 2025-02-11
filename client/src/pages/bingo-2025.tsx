@@ -14,21 +14,21 @@ const BINGO_DATA = {
       { text: "Collab avec un musée", status: "Pas commencé" }
     ],
     [
-      { text: "130 séances de sport", status: "12" },
+      { text: "130 séances de sport", status: "16" },
       { text: "Apprendre des pas de danse", status: "Pas commencé" },
-      { text: "120 films vus", status: "9" },
+      { text: "120 films vus", status: "14" },
       { text: "10 livres finis", status: "2 en cours" }
     ],
     [
       { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation" },
       { text: "Faire/Planifier un voyage vers un pote expat", status: "Pas commencé" },
       { text: "Faire une vidéo YT quali (20+min)", status: "Pas commencé" },
-      { text: "100kg squat", status: "85kg (janv 2025)" }
+      { text: "100kg squat", status: "90kg (fev 2025)" }
     ],
     [
       { text: "20k insta", status: "10k" },
       { text: "Passer le permis", status: "3 échecs, j'aiplus le code mdr" },
-      { text: "5 nouveaux decks MTG", status: "2 en cours" },
+      { text: "5 nouveaux decks MTG", status: "2/5" },
       { text: "Diamant SoloQ sur LoL", status: "Emeraude 4" }
     ]
   ]
