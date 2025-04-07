@@ -10,7 +10,7 @@ const BINGO_DATA = {
   grid: [
     [
       { text: "100k tiktok", status: "60,9k", completed: false },
-      { text: "Créer un site que des gens utilisent", status: "50 personnes ont utilisé celui-ci !", completed: true },
+      { text: "Créer un site que des gens utilisent", status: "50+  personnes ont utilisé celui-ci !", completed: true },
       { text: "115kg Développé Couché", status: "100kg (juillet 2024)", completed: false },
       { text: "Collab avec un musée", status: "Pas commencé", completed: false }
     ],
