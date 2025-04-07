@@ -1,54 +1,78 @@
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { useState, useEffect } from "react";
-import BingoCard from "@/components/bingo-card";
 
-// Predefined resolutions for the 2025 bingo
-const BINGO_RESOLUTIONS = [
-  { id: "1", text: "100k tiktok" },
-  { id: "2", text: "Créer un site que des gens utilisent" },
-  { id: "3", text: "115kg Développé Couché" },
-  { id: "4", text: "Collab avec un musée" },
-  { id: "5", text: "130 séances de sport" },
-  { id: "6", text: "Apprendre des pas de danse" },
-  { id: "7", text: "120 films vus" },
-  { id: "8", text: "10 livres finis" },
-  { id: "9", text: "Faire un tatouage" },
-  { id: "10", text: "Faire/Planifier un voyage vers un pote expat" },
-  { id: "11", text: "Faire une vidéo YT quali (20+min)" },
-  { id: "12", text: "100kg squat" },
-  { id: "13", text: "20k insta" },
-  { id: "14", text: "Passer le permis" },
-  { id: "15", text: "5 nouveaux decks MTG" },
-  { id: "16", text: "Diamant SoloQ sur LoL" }
-];
+const BINGO_DATA = {
+  title: "Mon Bingo 2025",
+  subtitle: "Suivez l'évolution de mes résolutions pour 2025",
+  grid: [
+    [
+      { text: "100k tiktok", status: "60,9k" },
+      { text: "Créer un site que des gens utilisent", status: "50 personnes ont utilisé celui-ci !" },
+      { text: "115kg Développé Couché", status: "100kg (juillet 2024)" },
+      { text: "Collab avec un musée", status: "Pas commencé" }
+    ],
+    [
+      { text: "130 séances de sport", status: "32" },
+      { text: "Apprendre des pas de danse", status: "Pas commencé" },
+      { text: "120 films vus", status: "33" },
+      { text: "10 livres finis", status: "2/10" }
+    ],
+    [
+      { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation" },
+      { text: "Faire/Planifier un voyage vers un pote expat", status: "Pas commencé" },
+      { text: "Faire une vidéo YT quali (20+min)", status: "Pas commencé" },
+      { text: "100kg squat", status: "95kg (fev 2025)" }
+    ],
+    [
+      { text: "20k insta", status: "11,2k" },
+      { text: "Passer le permis", status: "3 échecs, j'ai plus le code mdr" },
+      { text: "5 nouveaux decks MTG", status: "3/5" },
+      { text: "Diamant SoloQ sur LoL", status: "Emeraude 4" }
+    ]
+  ]
+};
 
 export default function Bingo2025() {
-  const [shuffleCount, setShuffleCount] = useState(0);
-
-  const handleShuffle = () => {
-    setShuffleCount(prev => prev + 1);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="text-center mb-8 md:mb-12 space-y-3 md:space-y-4">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 tracking-tight">
-            Mon Bingo 2025
+            {BINGO_DATA.title}
           </h1>
           <p className="text-gray-500 max-w-2xl mx-auto text-base md:text-lg">
-            Suivez l'évolution de mes résolutions pour 2025
+            {BINGO_DATA.subtitle}
           </p>
         </div>
 
-        <div className="mb-8 md:mb-12">
-          <BingoCard
-            key={shuffleCount}
-            resolutions={BINGO_RESOLUTIONS}
-            gridSize="4x4"
-            onShuffle={handleShuffle}
-          />
+        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12">
+          <div className="grid grid-cols-4 gap-1 md:gap-3 auto-rows-fr">
+            {BINGO_DATA.grid.flat().map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.2,
+                  delay: index * 0.05,
+                  ease: "easeOut",
+                }}
+              >
+                <Card 
+                  className="h-full p-1.5 md:p-4 min-h-[70px] sm:min-h-[90px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 hover:bg-gray-50/50"
+                >
+                  <p className="text-[10px] sm:text-sm md:text-base text-gray-600 leading-tight md:leading-relaxed mb-1 md:mb-2">
+                    {item.text}
+                  </p>
+                  <p className="text-[8px] md:text-xs text-gray-400 italic">
+                    {item.status}
+                  </p>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         <div className="text-center">
