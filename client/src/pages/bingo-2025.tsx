@@ -2,34 +2,35 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
+import { Check } from "lucide-react";
 
 const BINGO_DATA = {
   title: "Mon Bingo 2025",
   subtitle: "Suivez l'évolution de mes résolutions pour 2025",
   grid: [
     [
-      { text: "100k tiktok", status: "60,9k" },
-      { text: "Créer un site que des gens utilisent", status: "50 personnes ont utilisé celui-ci !" },
-      { text: "115kg Développé Couché", status: "100kg (juillet 2024)" },
-      { text: "Collab avec un musée", status: "Pas commencé" }
+      { text: "100k tiktok", status: "60,9k", completed: false },
+      { text: "Créer un site que des gens utilisent", status: "50 personnes ont utilisé celui-ci !", completed: true },
+      { text: "115kg Développé Couché", status: "100kg (juillet 2024)", completed: false },
+      { text: "Collab avec un musée", status: "Pas commencé", completed: false }
     ],
     [
-      { text: "130 séances de sport", status: "32" },
-      { text: "Apprendre des pas de danse", status: "Pas commencé" },
-      { text: "120 films vus", status: "33" },
-      { text: "10 livres finis", status: "2/10" }
+      { text: "130 séances de sport", status: "32", completed: false },
+      { text: "Apprendre des pas de danse", status: "Pas commencé", completed: false },
+      { text: "120 films vus", status: "33", completed: false },
+      { text: "10 livres finis", status: "2/10", completed: false }
     ],
     [
-      { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation" },
-      { text: "Faire/Planifier un voyage vers un pote expat", status: "Pas commencé" },
-      { text: "Faire une vidéo YT quali (20+min)", status: "Pas commencé" },
-      { text: "100kg squat", status: "95kg (fev 2025)" }
+      { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation", completed: false },
+      { text: "Faire/Planifier un voyage vers un pote expat", status: "Pas commencé", completed: false },
+      { text: "Faire une vidéo YT quali (20+min)", status: "Pas commencé", completed: false },
+      { text: "100kg squat", status: "95kg (fev 2025)", completed: false }
     ],
     [
-      { text: "20k insta", status: "11,2k" },
-      { text: "Passer le permis", status: "3 échecs, j'ai plus le code mdr" },
-      { text: "5 nouveaux decks MTG", status: "3/5" },
-      { text: "Diamant SoloQ sur LoL", status: "Emeraude 4" }
+      { text: "20k insta", status: "11,2k", completed: false },
+      { text: "Passer le permis", status: "3 échecs, j'ai plus le code mdr", completed: false },
+      { text: "5 nouveaux decks MTG", status: "3/5", completed: false },
+      { text: "Diamant SoloQ sur LoL", status: "Emeraude 4", completed: false }
     ]
   ]
 };
@@ -61,8 +62,16 @@ export default function Bingo2025() {
                 }}
               >
                 <Card 
-                  className="h-full p-1.5 md:p-4 min-h-[70px] sm:min-h-[90px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100 hover:bg-gray-50/50"
+                  className={`relative h-full p-1.5 md:p-4 min-h-[70px] sm:min-h-[90px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100
+                    ${item.completed 
+                      ? 'bg-green-50 border-green-200' 
+                      : 'hover:bg-gray-50/50'}`}
                 >
+                  {item.completed && (
+                    <div className="absolute top-1 right-1 md:top-2 md:right-2">
+                      <Check className="w-3 h-3 md:w-4 md:h-4 text-green-500" />
+                    </div>
+                  )}
                   <p className="text-[10px] sm:text-sm md:text-base text-gray-600 leading-tight md:leading-relaxed mb-1 md:mb-2">
                     {item.text}
                   </p>
