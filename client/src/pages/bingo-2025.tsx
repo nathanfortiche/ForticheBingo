@@ -6,10 +6,10 @@ import { Check } from "lucide-react";
 
 const BINGO_DATA = {
   title: "Mon Bingo 2025",
-  subtitle: "Suivez l'évolution de mes résolutions pour 2025",
+  subtitle: "Suivez l'évolution de mes objectifs pour 2025 !",
   grid: [
     [
-      { text: "100k tiktok", status: "61.1k", completed: false },
+      { text: "100k tiktok", status: "61.5k", completed: false },
       { text: "Créer un site que des gens utilisent", status: "50+  personnes ont utilisé celui-ci !", completed: true },
       { text: "115kg Développé Couché", status: "100kg (juillet 2024)", completed: false },
       { text: "Collab avec un musée", status: "Pas commencé", completed: false }
@@ -24,13 +24,13 @@ const BINGO_DATA = {
       { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation", completed: false },
       { text: "Faire/Planifier un voyage vers un pote expat", status: "Pas commencé", completed: false },
       { text: "Faire une vidéo YT quali (20+min)", status: "Pas commencé", completed: false },
-      { text: "100kg squat", status: "95kg (fev 2025)", completed: false }
+      { text: "100kg squat", status: "100kg x3 reps (Avril 2025)", completed: true }
     ],
     [
       { text: "20k insta", status: "11,4k", completed: false },
       { text: "Passer le permis", status: "3 échecs, j'ai plus le code mdr", completed: false },
       { text: "5 nouveaux decks MTG", status: "3/5", completed: false },
-      { text: "Diamant SoloQ sur LoL", status: "Emeraude 4", completed: false }
+      { text: "Diamant SoloQ sur LoL", status: "Emeraude 1", completed: false }
     ]
   ]
 };
