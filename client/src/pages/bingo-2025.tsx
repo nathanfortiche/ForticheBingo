@@ -15,9 +15,9 @@ const BINGO_DATA = {
       { text: "Collab avec un musée", status: "Pas commencé", completed: false }
     ],
     [
-      { text: "130 séances de sport", status: "37", completed: false },
+      { text: "130 séances de sport", status: "41", completed: false },
       { text: "Apprendre des pas de danse", status: "Pas commencé", completed: false },
-      { text: "120 films vus", status: "37", completed: false },
+      { text: "120 films vus", status: "43", completed: false },
       { text: "10 livres finis", status: "2/10", completed: false }
     ],
     [
@@ -29,8 +29,8 @@ const BINGO_DATA = {
     [
       { text: "20k insta", status: "11,4k", completed: false },
       { text: "Passer le permis", status: "3 échecs, j'ai plus le code mdr", completed: false },
-      { text: "5 nouveaux decks MTG", status: "3/5", completed: false },
-      { text: "Diamant SoloQ sur LoL", status: "Emeraude 1", completed: false }
+      { text: "5 nouveaux decks MTG", status: "4/5", completed: false },
+      { text: "Diamant SoloQ sur LoL", status: "Emeraude 3", completed: false }
     ]
   ]
 };
