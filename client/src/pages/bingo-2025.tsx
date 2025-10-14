@@ -9,28 +9,28 @@ const BINGO_DATA = {
   subtitle: "Suivez l'évolution de mes objectifs pour 2025 !",
   grid: [
     [
-      { text: "100k tiktok", status: "64.1k", completed: false },
+      { text: "100k tiktok", status: "64.7k", completed: false },
       { text: "Créer un site que des gens utilisent", status: "100+  personnes ont utilisé celui-ci !", completed: true },
-      { text: "110kg Développé Couché", status: "100kg (juillet 2024)", completed: false },
+      { text: "110kg Développé Couché", status: "105kg x 2 reps", completed: false },
       { text: "Collab avec un musée", status: "Quelques idées", completed: false }
     ],
     [
-      { text: "130 séances de sport", status: "74", completed: false },
+      { text: "130 séances de sport", status: "83", completed: false },
       { text: "Apprendre des pas de danse", status: "Pas commencé", completed: false },
-      { text: "120 films vus", status: "89", completed: false },
+      { text: "120 films vus", status: "102", completed: false },
       { text: "10 livres finis", status: "4/10", completed: false }
     ],
     [
       { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation", completed: false },
-      { text: "Compléter mon Pokédex de cartes", status: "981/1025", completed: false },
+      { text: "Compléter mon Pokédex de cartes", status: "1021/1025", completed: false },
       { text: "Faire une vidéo YT quali (20+min)", status: "J'ai le sujet", completed: false },
       { text: "100kg squat", status: "100kg x3 reps (Avril 2025)", completed: true }
     ],
     [
-      { text: "20k insta", status: "17,6k", completed: false },
+      { text: "20k insta", status: "19,1k", completed: false },
       { text: "Passer le permis", status: "3 échecs, j'ai plus le code mdr", completed: false },
       { text: "5 nouveaux decks MTG", status: "5/5", completed: true },
-      { text: "Diamant SoloQ sur LoL", status: "Emeraude 3", completed: false }
+      { text: "Diamant SoloQ sur LoL", status: "Emeraude 2", completed: false }
     ]
   ]
 };
