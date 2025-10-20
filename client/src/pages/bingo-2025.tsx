@@ -30,7 +30,7 @@ const BINGO_DATA = {
       { text: "20k insta", status: "19,1k", completed: false },
       { text: "Passer le permis", status: "3 échecs, j'ai plus le code mdr", completed: false },
       { text: "5 nouveaux decks MTG", status: "5/5", completed: true },
-      { text: "Diamant SoloQ sur LoL", status: "Emeraude 2 44 LPs", completed: false }
+      { text: "Diamant SoloQ sur LoL", status: "Emeraude 2", completed: false }
     ]
   ]
 };
