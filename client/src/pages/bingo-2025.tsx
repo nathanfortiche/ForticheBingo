@@ -11,20 +11,20 @@ const BINGO_DATA = {
     [
       { text: "100k tiktok", status: "64.7k", completed: false },
       { text: "Créer un site que des gens utilisent", status: "100+  personnes ont utilisé celui-ci !", completed: true },
-      { text: "110kg Développé Couché", status: "105kg x 2 reps", completed: false },
+      { text: "110kg Développé Couché", status: "110KGx1rep Oct 2025", completed: true },
       { text: "Collab avec un musée", status: "Quelques idées", completed: false }
     ],
     [
-      { text: "130 séances de sport", status: "83", completed: false },
+      { text: "130 séances de sport", status: "85", completed: false },
       { text: "Apprendre des pas de danse", status: "Pas commencé", completed: false },
-      { text: "120 films vus", status: "102", completed: false },
+      { text: "120 films vus", status: "107", completed: false },
       { text: "10 livres finis", status: "4/10", completed: false }
     ],
     [
       { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation", completed: false },
       { text: "Compléter mon Pokédex de cartes", status: "1021/1025", completed: false },
       { text: "Faire une vidéo YT quali (20+min)", status: "J'ai le sujet", completed: false },
-      { text: "100kg squat", status: "100kg x3 reps (Avril 2025)", completed: true }
+      { text: "100kg squat", status: "105kg x3 reps", completed: true }
     ],
     [
       { text: "20k insta", status: "19,1k", completed: false },
