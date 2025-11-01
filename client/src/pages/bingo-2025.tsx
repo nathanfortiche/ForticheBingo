@@ -15,14 +15,14 @@ const BINGO_DATA = {
       { text: "Collab avec un musée", status: "Quelques idées", completed: false }
     ],
     [
-      { text: "130 séances de sport", status: "85", completed: false },
+      { text: "130 séances de sport", status: "86", completed: false },
       { text: "Apprendre des pas de danse", status: "Pas commencé", completed: false },
-      { text: "120 films vus", status: "107", completed: false },
+      { text: "120 films vus", status: "115", completed: false },
       { text: "10 livres finis", status: "4/10", completed: false }
     ],
     [
       { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation", completed: false },
-      { text: "Compléter mon Pokédex de cartes", status: "1021/1025", completed: false },
+      { text: "Compléter mon Pokédex de cartes", status: "1025/1025", completed: true },
       { text: "Faire une vidéo YT quali (20+min)", status: "J'ai le sujet", completed: false },
       { text: "100kg squat", status: "105kg x3 reps", completed: true }
     ],
