@@ -9,16 +9,16 @@ const BINGO_DATA = {
   subtitle: "Suivez l'évolution de mes objectifs pour 2025 !",
   grid: [
     [
-      { text: "100k tiktok", status: "64.7k", completed: false },
+      { text: "100k tiktok", status: "64.8k", completed: false },
       { text: "Créer un site que des gens utilisent", status: "100+  personnes ont utilisé celui-ci !", completed: true },
       { text: "110kg Développé Couché", status: "110KGx1rep Oct 2025", completed: true },
       { text: "Collab avec un musée", status: "Quelques idées", completed: false }
     ],
     [
-      { text: "130 séances de sport", status: "86", completed: false },
+      { text: "130 séances de sport", status: "88", completed: false },
       { text: "Apprendre des pas de danse", status: "Pas commencé", completed: false },
-      { text: "120 films vus", status: "115", completed: false },
-      { text: "10 livres finis", status: "4/10", completed: false }
+      { text: "120 films vus", status: "134", completed: true },
+      { text: "10 livres finis", status: "8/10", completed: false }
     ],
     [
       { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation", completed: false },
@@ -27,10 +27,10 @@ const BINGO_DATA = {
       { text: "100kg squat", status: "105kg x3 reps", completed: true }
     ],
     [
-      { text: "20k insta", status: "19,1k", completed: false },
+      { text: "20k insta", status: "20.4k", completed: true },
       { text: "Passer le permis", status: "3 échecs, j'ai plus le code mdr", completed: false },
-      { text: "5 nouveaux decks MTG", status: "5/5", completed: true },
-      { text: "Diamant SoloQ sur LoL", status: "Emeraude 2", completed: false }
+      { text: "5 nouveaux decks MTG", status: "6/5", completed: true },
+      { text: "Diamant SoloQ sur LoL", status: "Emeraude 3", completed: false }
     ]
   ]
 };
