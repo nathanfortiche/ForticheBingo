@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -36,6 +37,10 @@ const BINGO_DATA = {
 };
 
 export default function Bingo2026() {
+  useEffect(() => {
+    document.title = "Mon Bingo 2026";
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 py-8 md:py-16">
