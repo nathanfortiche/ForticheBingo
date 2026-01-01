@@ -5,37 +5,37 @@ import { Link } from "wouter";
 import { Check } from "lucide-react";
 
 const BINGO_DATA = {
-  title: "Mon Bingo 2025",
-  subtitle: "Suivez l'évolution de mes objectifs pour 2025 !",
+  title: "Mon Bingo 2026",
+  subtitle: "Suivez l'évolution de mes objectifs pour 2026 !",
   grid: [
     [
-      { text: "100k tiktok", status: "64.8k", completed: false },
-      { text: "Créer un site que des gens utilisent", status: "100+  personnes ont utilisé celui-ci !", completed: true },
-      { text: "110kg Développé Couché", status: "110KGx1rep Oct 2025", completed: true },
-      { text: "Collab avec un musée", status: "Quelques idées", completed: false }
+      { text: "Faire 20 tractions d'affilée", status: "Record : 12", completed: false },
+      { text: "Passer le permis", status: "Pas commencé", completed: false },
+      { text: "100k TikTok", status: "65k", completed: false },
+      { text: "Collectionner tous les arts de Rondoudou", status: "5/33", completed: false }
     ],
     [
-      { text: "130 séances de sport", status: "88", completed: false },
+      { text: "Tester le Kite Surf", status: "Pas commencé, encore en rééducation", completed: false },
+      { text: "Voir 130 films", status: "0/130", completed: false },
+      { text: "Me faire tatouer", status: "J'ai une idée précise", completed: false },
+      { text: "30k Insta", status: "20.5k", completed: false }
+    ],
+    [
+      { text: "Faire un muscle up", status: "Impossible pour l'instant", completed: false },
+      { text: "Créer un nouveau site utilisé", status: "En cours de développement", completed: false },
       { text: "Apprendre des pas de danse", status: "Pas commencé", completed: false },
-      { text: "120 films vus", status: "134", completed: true },
-      { text: "10 livres finis", status: "8/10", completed: false }
+      { text: "Lancer 1 nouveau compte TikTok", status: "Plusieurs idées", completed: false }
     ],
     [
-      { text: "Faire un tatouage", status: "Plein d'idées, bcp d'hésitation", completed: false },
-      { text: "Compléter mon Pokédex de cartes", status: "1025/1025", completed: true },
-      { text: "Faire une vidéo YT quali (20+min)", status: "J'ai le sujet", completed: false },
-      { text: "100kg squat", status: "105kg x3 reps", completed: true }
-    ],
-    [
-      { text: "20k insta", status: "20.4k", completed: true },
-      { text: "Passer le permis", status: "3 échecs, j'ai plus le code mdr", completed: false },
-      { text: "5 nouveaux decks MTG", status: "6/5", completed: true },
-      { text: "Diamant SoloQ sur LoL", status: "Emeraude 3", completed: false }
+      { text: "Passer Diamant SoloQ sur LoL", status: "E3 fin de saison, E1 peak", completed: false },
+      { text: "Finir 12 livres", status: "0/12", completed: false },
+      { text: "Collab avec un musée/média", status: "Pas commencé", completed: false },
+      { text: "Faire 111 séances de sport", status: "0/111", completed: false }
     ]
   ]
 };
 
-export default function Bingo2025() {
+export default function Bingo2026() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 py-8 md:py-16">
@@ -94,9 +94,9 @@ export default function Bingo2025() {
                 Créer mon bingo
               </Button>
             </Link>
-            <Link href="/bingo-2026">
+            <Link href="/bingo-2025">
               <Button variant="outline">
-                Voir le Bingo 2026
+                Voir le Bingo 2025
               </Button>
             </Link>
           </div>
