@@ -17,9 +17,9 @@ const BINGO_DATA = {
     ],
     [
       { text: "Tester le Kite Surf", status: "Pas commencé, encore en rééducation", completed: false },
-      { text: "Voir 130 films", status: "0/130", completed: false },
+      { text: "Voir 130 films", status: "1/130", completed: false },
       { text: "Me faire tatouer", status: "J'ai une idée précise", completed: false },
-      { text: "30k Insta", status: "20.5k", completed: false }
+      { text: "30k Insta", status: "21.5k", completed: false }
     ],
     [
       { text: "Faire un muscle up", status: "Impossible pour l'instant", completed: false },
@@ -31,7 +31,7 @@ const BINGO_DATA = {
       { text: "Passer Diamant SoloQ sur LoL", status: "E3 fin de saison, E1 peak", completed: false },
       { text: "Finir 12 livres", status: "0/12", completed: false },
       { text: "Collab avec un musée/média", status: "Pas commencé", completed: false },
-      { text: "Faire 111 séances de sport", status: "0/111", completed: false }
+      { text: "Faire 111 séances de sport", status: "1/111", completed: false }
     ]
   ]
 };
