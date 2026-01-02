@@ -17,7 +17,7 @@ const BINGO_DATA = {
     ],
     [
       { text: "Tester le Kite Surf", status: "Pas commencé, encore en rééducation", completed: false },
-      { text: "Voir 130 films", status: "1/130", completed: false },
+      { text: "Voir 130 films", status: "2/130", completed: false },
       { text: "Me faire tatouer", status: "J'ai une idée précise", completed: false },
       { text: "30k Insta", status: "21.5k", completed: false }
     ],
