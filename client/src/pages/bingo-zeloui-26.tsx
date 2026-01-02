@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Link } from "wouter";
 import { Check } from "lucide-react";
 
 const BINGO_DATA = {
   title: "Bingo Zeloui 2026",
-  subtitle: "Suivez l'évolution de mes objectifs pour 2026 !",
+  subtitle: "Bonne chance Zeloui !",
   grid: [
     [
       { text: "Commencer une nouvelle langue", status: "Pas commencé", completed: false },
@@ -89,16 +87,6 @@ export default function BingoZeloui26() {
           </div>
         </div>
 
-        <div className="text-center">
-          <p className="text-sm md:text-base text-gray-600 mb-4">
-            Envie de créer votre propre bingo des résolutions ?
-          </p>
-          <Link href="/">
-            <Button className="bg-gray-900 hover:bg-gray-800">
-              Créer mon bingo
-            </Button>
-          </Link>
-        </div>
       </div>
     </div>
   );
