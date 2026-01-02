@@ -13,22 +13,25 @@ const BINGO_DATA = {
       { text: "Commencer une nouvelle langue", status: "Pas commencé", completed: false },
       { text: "Faire 52 séances de sport", status: "1/52", completed: false },
       { text: "Participer à 2 concours d'écriture", status: "0/2", completed: false },
-      { text: "Voyager avec ma mère", status: "Pas commencé", completed: false },
-      { text: "Lire 35 livres", status: "0/35", completed: false }
+      { text: "Voyager avec ma mère", status: "Pas commencé", completed: false }
     ],
     [
+      { text: "Lire 35 livres", status: "0/35", completed: false },
       { text: "Passer le code de la route", status: "Pas commencé", completed: false },
       { text: "Voir 130 films", status: "1/130", completed: false },
-      { text: "Organiser un week-end retraite d'écriture", status: "Pas commencé", completed: false },
-      { text: "Commencer la photo argentique", status: "Pas commencé", completed: false },
-      { text: "Changer de boulot", status: "Pas commencé", completed: false }
+      { text: "Organiser un week-end retraite d'écriture", status: "Pas commencé", completed: false }
     ],
     [
+      { text: "Commencer la photo argentique", status: "Pas commencé", completed: false },
+      { text: "Changer de boulot", status: "Pas commencé", completed: false },
       { text: "Mener des interviews sur la mémoire familiale", status: "Pas commencé", completed: false },
-      { text: "Découvrir 24 nouveaux restos", status: "0/24", completed: false },
+      { text: "Découvrir 24 nouveaux restos", status: "0/24", completed: false }
+    ],
+    [
       { text: "Faire 1 gros voyage", status: "Pas commencé", completed: false },
       { text: "Participer à des ateliers d'écriture", status: "Pas commencé", completed: false },
-      { text: "Constituer un album photo", status: "Pas commencé", completed: false }
+      { text: "Constituer un album photo", status: "Pas commencé", completed: false },
+      { text: "Faire un plongeon dans le documentaire", status: "Pas commencé", completed: false }
     ]
   ]
 };
@@ -50,8 +53,8 @@ export default function BingoZeloui26() {
           </p>
         </div>
 
-        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-4xl mx-auto mb-8 md:mb-12">
-          <div className="grid grid-cols-5 gap-1 md:gap-3 auto-rows-fr">
+        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12">
+          <div className="grid grid-cols-4 gap-1 md:gap-3 auto-rows-fr">
             {BINGO_DATA.grid.flat().map((item, index) => (
               <motion.div
                 key={index}
