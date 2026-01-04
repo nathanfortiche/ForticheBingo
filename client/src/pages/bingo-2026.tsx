@@ -17,13 +17,13 @@ const BINGO_DATA = {
     ],
     [
       { text: "Tester le Kite Surf", status: "Pas commencé, encore en rééducation", completed: false },
-      { text: "Voir 130 films", status: "2/130", completed: false },
+      { text: "Voir 130 films", status: "3/130", completed: false },
       { text: "Me faire tatouer", status: "J'ai une idée précise", completed: false },
       { text: "30k Insta", status: "21.5k", completed: false }
     ],
     [
       { text: "Faire un muscle up", status: "Impossible pour l'instant", completed: false },
-      { text: "Créer un nouveau site utilisé", status: "En cours de développement", completed: false },
+      { text: "Créer 6 sites cools ", status: "2 En cours de développement !", completed: false },
       { text: "Apprendre des pas de danse", status: "Pas commencé", completed: false },
       { text: "Lancer 1 nouveau compte TikTok", status: "Plusieurs idées", completed: false }
     ],
@@ -31,7 +31,7 @@ const BINGO_DATA = {
       { text: "Passer Diamant SoloQ sur LoL", status: "E3 fin de saison, E1 peak", completed: false },
       { text: "Finir 12 livres", status: "0/12", completed: false },
       { text: "Collab avec un musée/média", status: "Pas commencé", completed: false },
-      { text: "Faire 111 séances de sport", status: "1/111", completed: false }
+      { text: "Faire 111 séances de sport", status: "2/111", completed: false }
     ]
   ]
 };
