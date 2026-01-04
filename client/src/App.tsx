@@ -8,6 +8,7 @@ import Home from "@/pages/home";
 import Bingo2025 from "@/pages/bingo-2025";
 import Bingo2026 from "@/pages/bingo-2026";
 import BingoZeloui26 from "@/pages/bingo-zeloui-26";
+import BingoKty26 from "@/pages/bingo-kty-26";
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/bingo-2025" component={Bingo2025} />
       <Route path="/bingo-2026" component={Bingo2026} />
       <Route path="/bingozeloui26" component={BingoZeloui26} />
+      <Route path="/BingoKty26" component={BingoKty26} />
       <Route component={NotFound} />
     </Switch>
   );
