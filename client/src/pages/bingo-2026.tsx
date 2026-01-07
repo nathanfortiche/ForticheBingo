@@ -12,26 +12,26 @@ const BINGO_DATA = {
     [
       { text: "Faire 20 tractions d'affilée", status: "Record : 12", completed: false },
       { text: "Passer le permis", status: "Pas commencé", completed: false },
-      { text: "100k TikTok", status: "65k", completed: false },
+      { text: "Refaire des vidéos longues", status: "Pas commencé", completed: false },
       { text: "Collectionner tous les arts de Rondoudou", status: "5/33", completed: false }
     ],
     [
       { text: "Tester le Kite Surf", status: "Pas commencé, encore en rééducation", completed: false },
-      { text: "Voir 130 films", status: "3/130", completed: false },
+      { text: "Voir 130 films", status: "4/130", completed: false },
       { text: "Me faire tatouer", status: "J'ai une idée précise", completed: false },
-      { text: "30k Insta", status: "21.5k", completed: false }
+      { text: "100k TikTok/35k Insta", status: "65.1k/21.6k", completed: false }
     ],
     [
       { text: "Faire un muscle up", status: "Impossible pour l'instant", completed: false },
-      { text: "Créer 6 sites cools ", status: "2 En cours de développement !", completed: false },
-      { text: "Apprendre des pas de danse", status: "Pas commencé", completed: false },
+      { text: "Créer 5 sites cools ", status: "2 En cours de développement !", completed: false },
+      { text: "Refaire du vélo", status: "Encore en rééducation", completed: false },
       { text: "Lancer 1 nouveau compte TikTok", status: "Plusieurs idées", completed: false }
     ],
     [
       { text: "Passer Diamant SoloQ sur LoL", status: "E3 fin de saison, E1 peak", completed: false },
       { text: "Finir 12 livres", status: "0/12", completed: false },
       { text: "Collab avec un musée/média", status: "Pas commencé", completed: false },
-      { text: "Faire 111 séances de sport", status: "2/111", completed: false }
+      { text: "Faire 111 séances de sport", status: "3/111", completed: false }
     ]
   ]
 };
