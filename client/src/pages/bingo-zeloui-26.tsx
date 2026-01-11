@@ -16,7 +16,7 @@ const BINGO_DATA = {
     [
       { text: "Lire 35 livres", status: "0/35", completed: false },
       { text: "Passer le code de la route", status: "Pas commencé", completed: false },
-      { text: "Voir 130 films", status: "6/130", completed: false },
+      { text: "Voir 130 films", status: "7/130", completed: false },
       { text: "Organiser un week-end retraite d'écriture", status: "Pas commencé", completed: false }
     ],
     [
@@ -29,7 +29,7 @@ const BINGO_DATA = {
       { text: "Faire 1 gros voyage", status: "Pas commencé", completed: false },
       { text: "Participer à des ateliers d'écriture", status: "Pas commencé", completed: false },
       { text: "Constituer un album photo", status: "Pas commencé", completed: false },
-      { text: "Faire un plongeon dans le documentaire", status: " 2 docs vus", completed: false }
+      { text: "Faire un plongeon dans le documentaire", status: "2 docus vus", completed: false }
     ]
   ]
 };
