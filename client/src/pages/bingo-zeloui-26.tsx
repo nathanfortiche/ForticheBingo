@@ -16,14 +16,14 @@ const BINGO_DATA = {
     [
       { text: "Lire 35 livres", status: "0/35", completed: false },
       { text: "Passer le code de la route", status: "Pas commencé", completed: false },
-      { text: "Voir 130 films", status: "4/130", completed: false },
+      { text: "Voir 130 films", status: "6/130", completed: false },
       { text: "Organiser un week-end retraite d'écriture", status: "Pas commencé", completed: false }
     ],
     [
       { text: "Commencer la photo argentique", status: "Pas commencé", completed: false },
       { text: "Changer de boulot", status: "Pas commencé", completed: false },
       { text: "Mener des interviews sur la mémoire familiale", status: "Pas commencé", completed: false },
-      { text: "Découvrir 24 nouveaux restos", status: "2/24", completed: false }
+      { text: "Découvrir 24 nouveaux restos", status: "3/24", completed: false }
     ],
     [
       { text: "Faire 1 gros voyage", status: "Pas commencé", completed: false },
