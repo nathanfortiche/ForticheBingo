@@ -14,7 +14,7 @@ const BINGO_DATA = {
       { text: "Voyager avec ma mère", status: "Pas commencé", completed: false }
     ],
     [
-      { text: "Lire 35 livres", status: "0/35", completed: false },
+      { text: "Lire 35 livres", status: "1/35", completed: false },
       { text: "Passer le code de la route", status: "Pas commencé", completed: false },
       { text: "Voir 130 films", status: "8/130", completed: false },
       { text: "Organiser un week-end retraite d'écriture", status: "Pas commencé", completed: false }
