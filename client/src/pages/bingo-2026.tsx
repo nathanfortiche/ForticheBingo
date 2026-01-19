@@ -13,11 +13,11 @@ const BINGO_DATA = {
       { text: "Faire 20 tractions d'affilée", status: "Record : 12", completed: false },
       { text: "Passer le permis", status: "Pas commencé", completed: false },
       { text: "Refaire des vidéos longues", status: "Pas commencé", completed: false },
-      { text: "Collectionner tous les arts de Rondoudou", status: "11/33", completed: false }
+      { text: "Collectionner tous les arts de Rondoudou", status: "14/29", completed: false }
     ],
     [
       { text: "Tester le Kite Surf", status: "Pas commencé, encore en rééducation", completed: false },
-      { text: "Voir 130 films", status: "8/130", completed: false },
+      { text: "Voir 130 films", status: "9/130", completed: false },
       { text: "Me faire tatouer", status: "J'ai une idée précise", completed: false },
       { text: "100k TikTok/35k Insta", status: "65.1k/21.6k", completed: false }
     ],
@@ -31,7 +31,7 @@ const BINGO_DATA = {
       { text: "Passer Diamant SoloQ sur LoL", status: "E3 fin de saison, E1 peak", completed: false },
       { text: "Finir 12 livres", status: "1/12", completed: false },
       { text: "Collab avec un musée/média", status: "Pas commencé", completed: false },
-      { text: "Faire 111 séances de sport", status: "4/111", completed: false }
+      { text: "Faire 111 séances de sport", status: "5/111", completed: false }
     ]
   ]
 };
