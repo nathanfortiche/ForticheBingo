@@ -13,7 +13,7 @@ const BINGO_DATA = {
       { text: "Faire 20 tractions d'affilée", status: "Record : 12", completed: false },
       { text: "Passer le permis", status: "Pas commencé", completed: false },
       { text: "Refaire des vidéos longues", status: "Pas commencé", completed: false },
-      { text: "Collectionner tous les arts de Rondoudou", status: "14/29", completed: false }
+      { text: "Collectionner tous les arts de Rondoudou", status: "15/27", completed: false }
     ],
     [
       { text: "Tester le Kite Surf", status: "Pas commencé, encore en rééducation", completed: false },
