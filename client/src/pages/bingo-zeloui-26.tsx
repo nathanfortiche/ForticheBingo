@@ -29,7 +29,7 @@ const BINGO_DATA = {
       { text: "Faire 1 gros voyage", status: "Pas commencé", completed: false },
       { text: "Participer à des ateliers d'écriture", status: "Pas commencé", completed: false },
       { text: "Constituer un album photo", status: "Pas commencé", completed: false },
-      { text: "Faire un plongeon dans le documentaire", status: "3 docus vus", completed: false }
+      { text: "Faire un plongeon dans le documentaire", status: "4 docus vus", completed: false }
     ]
   ]
 };
