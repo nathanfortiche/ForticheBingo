@@ -8,20 +8,20 @@ const BINGO_DATA = {
   subtitle: "Bonne Chance ForticheKty !",
   grid: [
     [
-      { text: "Voir 200 films", status: "0/200", completed: false },
+      { text: "Voir 200 films", status: "19/200", completed: false },
       { text: "Repeindre murs de la cuisine", status: "Pas commencé", completed: false },
       { text: "1 cours Kiplin/semaine", status: "0/52", completed: false },
-      { text: "Tricoter 1 sock box", status: "0/12", completed: false }
+      { text: "Tricoter 1 sock box", status: "1/12", completed: false }
     ],
     [
       { text: "Fixer date retraite et commencer dossier", status: "Pas commencé", completed: false },
-      { text: "Lire 99 livres", status: "0/99", completed: false },
+      { text: "Lire 99 livres", status: "5/99", completed: false },
       { text: "Un séjour avec Hapimag", status: "0/1", completed: false },
-      { text: "Aller à 4 concerts/spectacles", status: "0/4", completed: false }
+      { text: "Aller à 4 concerts/spectacles", status: "1/4", completed: false }
     ],
     [
       { text: "24 séances de piscine", status: "0/24", completed: false },
-      { text: "Défi des 52 enveloppes", status: "0/1378", completed: false },
+      { text: "Défi des 52 enveloppes", status: "37/1378", completed: false },
       { text: "Tricoter un pull pour mon anniversaire", status: "Pas commencé", completed: false },
       { text: "Prendre rdv chez un dentiste", status: "Pas commencé", completed: false }
     ],
