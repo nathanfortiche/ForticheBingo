@@ -10,30 +10,78 @@ const BINGO_DATA = {
   subtitle: "Suivez l'évolution de mes objectifs pour 2026 !",
   grid: [
     [
-      { text: "Faire 20 tractions d'affilée", status: "Record : 12", completed: false },
+      {
+        text: "Faire 20 tractions d'affilée",
+        status: "Record : 12",
+        completed: false,
+      },
       { text: "Passer le permis", status: "Pas commencé", completed: false },
-      { text: "Refaire des vidéos longues", status: "Pas commencé", completed: false },
-      { text: "Collectionner tous les arts de Rondoudou", status: "16/27", completed: false }
+      {
+        text: "Refaire des vidéos longues",
+        status: "Pas commencé",
+        completed: false,
+      },
+      {
+        text: "Collectionner tous les arts de Rondoudou",
+        status: "16/27",
+        completed: false,
+      },
     ],
     [
-      { text: "Tester le Kite Surf", status: "Pas commencé, encore en rééducation", completed: false },
+      {
+        text: "Tester le Kite Surf",
+        status: "Pas commencé, encore en rééducation",
+        completed: false,
+      },
       { text: "Voir 130 films", status: "9/130", completed: false },
-      { text: "Me faire tatouer", status: "J'ai une idée précise", completed: false },
-      { text: "100k TikTok/35k Insta", status: "65.1k/21.6k", completed: false }
+      {
+        text: "Me faire tatouer",
+        status: "J'ai une idée précise",
+        completed: false,
+      },
+      {
+        text: "100k TikTok/35k Insta",
+        status: "65.1k/21.6k",
+        completed: false,
+      },
     ],
     [
-      { text: "Faire un muscle up", status: "Impossible pour l'instant", completed: false },
-      { text: "Créer 5 sites cools ", status: "2 En cours de développement !", completed: false },
-      { text: "Refaire du vélo", status: "Encore en rééducation", completed: false },
-      { text: "Lancer 1 nouveau compte TikTok", status: "Plusieurs idées", completed: false }
+      {
+        text: "Faire un muscle up",
+        status: "Impossible pour l'instant",
+        completed: false,
+      },
+      {
+        text: "Créer 5 sites cools ",
+        status: "2 En cours de développement !",
+        completed: false,
+      },
+      {
+        text: "Refaire du vélo",
+        status: "Merci la rééducation !!!",
+        completed: true,
+      },
+      {
+        text: "Lancer 1 nouveau compte TikTok",
+        status: "Plusieurs idées",
+        completed: false,
+      },
     ],
     [
-      { text: "Passer Diamant SoloQ sur LoL", status: "E3 fin de saison, E1 peak", completed: false },
+      {
+        text: "Passer Diamant SoloQ sur LoL",
+        status: "E3 fin de saison, E1 peak",
+        completed: false,
+      },
       { text: "Finir 12 livres", status: "1/12", completed: false },
-      { text: "Collab avec un musée/média", status: "Pas commencé", completed: false },
-      { text: "Faire 111 séances de sport", status: "5/111", completed: false }
-    ]
-  ]
+      {
+        text: "Collab avec un musée/média",
+        status: "Pas commencé",
+        completed: false,
+      },
+      { text: "Faire 111 séances de sport", status: "5/111", completed: false },
+    ],
+  ],
 };
 
 export default function Bingo2026() {
@@ -53,7 +101,10 @@ export default function Bingo2026() {
           </p>
         </div>
 
-        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12">
+        <div
+          id="bingo-card"
+          className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12"
+        >
           <div className="grid grid-cols-4 gap-1 md:gap-3 auto-rows-fr">
             {BINGO_DATA.grid.flat().map((item, index) => (
               <motion.div
@@ -66,11 +117,13 @@ export default function Bingo2026() {
                   ease: "easeOut",
                 }}
               >
-                <Card 
+                <Card
                   className={`relative h-full p-1.5 md:p-4 min-h-[70px] sm:min-h-[90px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100
-                    ${item.completed 
-                      ? 'bg-green-50 border-green-200' 
-                      : 'hover:bg-gray-50/50'}`}
+                    ${
+                      item.completed
+                        ? "bg-green-50 border-green-200"
+                        : "hover:bg-gray-50/50"
+                    }`}
                 >
                   {item.completed && (
                     <div className="absolute top-1 right-1 md:top-2 md:right-2">
@@ -100,9 +153,7 @@ export default function Bingo2026() {
               </Button>
             </Link>
             <Link href="/bingo-2025">
-              <Button variant="outline">
-                Voir le Bingo 2025
-              </Button>
+              <Button variant="outline">Voir le Bingo 2025</Button>
             </Link>
           </div>
         </div>
