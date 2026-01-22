@@ -70,8 +70,8 @@ const BINGO_DATA = {
     [
       {
         text: "Passer Diamant SoloQ sur LoL",
-        status: "E3 fin de saison, E1 peak",
-        completed: false,
+        status: "ENFIN LIBRE !",
+        completed: true,
       },
       { text: "Finir 12 livres", status: "1/12", completed: false },
       {
