@@ -8,30 +8,62 @@ const BINGO_DATA = {
   subtitle: "Bonne Chance ForticheKty !",
   grid: [
     [
-      { text: "Voir 200 films", status: "19/200", completed: false },
-      { text: "Repeindre murs de la cuisine", status: "Pas commencé", completed: false },
-      { text: "1 cours Kiplin/semaine", status: "0/52", completed: false },
-      { text: "Tricoter 1 sock box", status: "1/12", completed: false }
+      { text: "Voir 200 films", status: "29/200", completed: false },
+      {
+        text: "Repeindre murs de la cuisine",
+        status: "Pas commencé",
+        completed: false,
+      },
+      { text: "1 cours Kiplin/semaine", status: "2/52", completed: false },
+      { text: "Tricoter 1 sock box", status: "1/12", completed: false },
     ],
     [
-      { text: "Fixer date retraite et commencer dossier", status: "Pas commencé", completed: false },
-      { text: "Lire 99 livres", status: "5/99", completed: false },
+      {
+        text: "Fixer date retraite et commencer dossier",
+        status: "Pas commencé",
+        completed: false,
+      },
+      { text: "Lire 99 livres", status: "è/99", completed: false },
       { text: "Un séjour avec Hapimag", status: "0/1", completed: false },
-      { text: "Aller à 4 concerts/spectacles", status: "1/4", completed: false }
+      {
+        text: "Aller à 4 concerts/spectacles",
+        status: "2/4",
+        completed: false,
+      },
     ],
     [
       { text: "24 séances de piscine", status: "0/24", completed: false },
       { text: "Défi des 52 enveloppes", status: "37/1378", completed: false },
-      { text: "Tricoter un pull pour mon anniversaire", status: "Pas commencé", completed: false },
-      { text: "Prendre rdv chez un dentiste", status: "Fait ! (Premier RDV en 10 ans", completed: true }
+      {
+        text: "Tricoter un pull pour mon anniversaire",
+        status: "Pas commencé",
+        completed: false,
+      },
+      {
+        text: "Prendre rdv chez un dentiste",
+        status: "Fait (Premier RDV en 10 ans !)",
+        completed: true,
+      },
     ],
     [
-      { text: "Terminer 3 challenges lectures", status: "0/3", completed: false },
-      { text: "2300 km en vélo", status: "0/2300", completed: false },
-      { text: "Apprendre broderie « mending »", status: "Pas commencé", completed: false },
-      { text: "1 long week-end « ailleurs » par trimestre", status: "0/4", completed: false }
-    ]
-  ]
+      {
+        text: "Terminer 3 challenges lectures",
+        status: "0/3",
+        completed: false,
+      },
+      { text: "2300 km en vélo", status: "22/2300", completed: false },
+      {
+        text: "Faire reconstruction du sein",
+        status: "RDV pris !",
+        completed: false,
+      },
+      {
+        text: "1 long week-end « ailleurs » par trimestre",
+        status: "0/4",
+        completed: false,
+      },
+    ],
+  ],
 };
 
 export default function BingoKty26() {
@@ -51,7 +83,10 @@ export default function BingoKty26() {
           </p>
         </div>
 
-        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12">
+        <div
+          id="bingo-card"
+          className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12"
+        >
           <div className="grid grid-cols-4 gap-1 md:gap-3 auto-rows-fr">
             {BINGO_DATA.grid.flat().map((item, index) => (
               <motion.div
@@ -64,11 +99,13 @@ export default function BingoKty26() {
                   ease: "easeOut",
                 }}
               >
-                <Card 
+                <Card
                   className={`relative h-full p-1.5 md:p-4 min-h-[70px] sm:min-h-[90px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100
-                    ${item.completed 
-                      ? 'bg-green-50 border-green-200' 
-                      : 'hover:bg-gray-50/50'}`}
+                    ${
+                      item.completed
+                        ? "bg-green-50 border-green-200"
+                        : "hover:bg-gray-50/50"
+                    }`}
                 >
                   {item.completed && (
                     <div className="absolute top-1 right-1 md:top-2 md:right-2">
@@ -86,7 +123,6 @@ export default function BingoKty26() {
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );
