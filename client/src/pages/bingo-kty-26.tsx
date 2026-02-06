@@ -23,7 +23,7 @@ const BINGO_DATA = {
       { text: "24 séances de piscine", status: "0/24", completed: false },
       { text: "Défi des 52 enveloppes", status: "37/1378", completed: false },
       { text: "Tricoter un pull pour mon anniversaire", status: "Pas commencé", completed: false },
-      { text: "Prendre rdv chez un dentiste", status: "Pas commencé", completed: false }
+      { text: "Prendre rdv chez un dentiste", status: "Fait ! (Premier RDV en 10 ans", completed: true }
     ],
     [
       { text: "Terminer 3 challenges lectures", status: "0/3", completed: false },
