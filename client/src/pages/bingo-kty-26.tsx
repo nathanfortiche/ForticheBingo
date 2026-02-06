@@ -23,7 +23,7 @@ const BINGO_DATA = {
         status: "Pas commencé",
         completed: false,
       },
-      { text: "Lire 99 livres", status: "è/99", completed: false },
+      { text: "Lire 99 livres", status: "7/99", completed: false },
       { text: "Un séjour avec Hapimag", status: "0/1", completed: false },
       {
         text: "Aller à 4 concerts/spectacles",
