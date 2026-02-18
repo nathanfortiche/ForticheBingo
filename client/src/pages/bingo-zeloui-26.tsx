@@ -14,22 +14,22 @@ const BINGO_DATA = {
       { text: "Voyager avec ma mère", status: "Pas commencé", completed: false }
     ],
     [
-      { text: "Lire 35 livres", status: "3/35", completed: false },
+      { text: "Lire 35 livres", status: "4/35", completed: false },
       { text: "Passer le code de la route", status: "Pas commencé", completed: false },
-      { text: "Voir 130 films", status: "17/130", completed: false },
+      { text: "Voir 130 films", status: "28/130", completed: false },
       { text: "Organiser un week-end retraite d'écriture", status: "Pas commencé", completed: false }
     ],
     [
       { text: "Commencer la photo argentique", status: "Pas commencé", completed: false },
       { text: "Changer de boulot", status: "Pas commencé", completed: false },
       { text: "Mener des interviews sur la mémoire familiale", status: "Pas commencé", completed: false },
-      { text: "Découvrir 24 nouveaux restos", status: "4/24", completed: false }
+      { text: "Découvrir 24 nouveaux restos", status: "5/24", completed: false }
     ],
     [
       { text: "Faire 1 gros voyage", status: "Pas commencé", completed: false },
       { text: "Participer à des ateliers d'écriture", status: "1 fait", completed: false },
       { text: "Constituer un album photo", status: "Pas commencé", completed: false },
-      { text: "Faire un plongeon dans le documentaire", status: "8 docus vus", completed: false }
+      { text: "Faire un plongeon dans le documentaire", status: "9 docus vus", completed: false }
     ]
   ]
 };

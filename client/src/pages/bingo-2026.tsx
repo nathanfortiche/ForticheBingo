@@ -12,7 +12,7 @@ const BINGO_DATA = {
     [
       {
         text: "Faire 20 tractions d'affilée",
-        status: "Record : 12",
+        status: "Record : 14",
         completed: false,
       },
       { text: "Passer le permis", status: "Pas commencé", completed: false },
@@ -33,7 +33,7 @@ const BINGO_DATA = {
         status: "Pas commencé, encore en rééducation",
         completed: false,
       },
-      { text: "Voir 130 films", status: "13/130", completed: false },
+      { text: "Voir 130 films", status: "21/130", completed: false },
       {
         text: "Me faire tatouer",
         status: "J'ai une idée précise",
@@ -73,13 +73,13 @@ const BINGO_DATA = {
         status: "ENFIN LIBRE !",
         completed: true,
       },
-      { text: "Finir 12 livres", status: "1/12", completed: false },
+      { text: "Finir 12 livres", status: "2/12", completed: false },
       {
         text: "Collab avec un musée/média",
         status: "Pas commencé",
         completed: false,
       },
-      { text: "Faire 111 séances de sport", status: "11/111", completed: false },
+      { text: "Faire 111 séances de sport", status: "18/111", completed: false },
     ],
   ],
 };
