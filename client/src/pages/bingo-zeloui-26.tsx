@@ -9,21 +9,21 @@ const BINGO_DATA = {
   grid: [
     [
       { text: "Commencer une nouvelle langue", status: "Pas commencé", completed: false },
-      { text: "Faire 52 séances de sport", status: "4/52", completed: false },
+      { text: "Faire 52 séances de sport", status: "7/52", completed: false },
       { text: "Participer à 2 concours d'écriture", status: "0/2", completed: false },
       { text: "Voyager avec ma mère", status: "Pas commencé", completed: false }
     ],
     [
-      { text: "Lire 35 livres", status: "4/35", completed: false },
+      { text: "Lire 35 livres", status: "5/35", completed: false },
       { text: "Passer le code de la route", status: "Pas commencé", completed: false },
-      { text: "Voir 130 films", status: "28/130", completed: false },
+      { text: "Voir 130 films", status: "34/130", completed: false },
       { text: "Organiser un week-end retraite d'écriture", status: "Pas commencé", completed: false }
     ],
     [
       { text: "Commencer la photo argentique", status: "Pas commencé", completed: false },
       { text: "Changer de boulot", status: "Pas commencé", completed: false },
       { text: "Mener des interviews sur la mémoire familiale", status: "Pas commencé", completed: false },
-      { text: "Découvrir 24 nouveaux restos", status: "5/24", completed: false }
+      { text: "Découvrir 24 nouveaux restos", status: "7/24", completed: false }
     ],
     [
       { text: "Faire 1 gros voyage", status: "Pas commencé", completed: false },

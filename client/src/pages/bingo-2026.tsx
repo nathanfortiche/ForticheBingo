@@ -12,7 +12,7 @@ const BINGO_DATA = {
     [
       {
         text: "Faire 20 tractions d'affilée",
-        status: "Record : 14",
+        status: "Record : 15",
         completed: false,
       },
       { text: "Passer le permis", status: "Pas commencé", completed: false },
@@ -40,8 +40,8 @@ const BINGO_DATA = {
         completed: false,
       },
       {
-        text: "100k TikTok/35k Insta",
-        status: "65.1k/21.6k",
+        text: "100k TikTok + Insta cumulés",
+        status: "86.5k/100k",
         completed: false,
       },
     ],
@@ -79,7 +79,7 @@ const BINGO_DATA = {
         status: "Pas commencé",
         completed: false,
       },
-      { text: "Faire 111 séances de sport", status: "18/111", completed: false },
+      { text: "Faire 111 séances de sport", status: "22/111", completed: false },
     ],
   ],
 };
