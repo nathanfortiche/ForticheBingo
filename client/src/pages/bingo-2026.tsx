@@ -33,7 +33,7 @@ const BINGO_DATA = {
         status: "Pas commencé, encore en rééducation",
         completed: false,
       },
-      { text: "Voir 130 films", status: "34/130", completed: false },
+      { text: "Voir 130 films", status: "35/130", completed: false },
       {
         text: "Me faire tatouer",
         status: "J'ai une idée précise",
@@ -41,7 +41,7 @@ const BINGO_DATA = {
       },
       {
         text: "100k TikTok + Insta cumulés",
-        status: "86.5k/100k",
+        status: "89,2k/100k",
         completed: false,
       },
     ],
@@ -79,7 +79,7 @@ const BINGO_DATA = {
         status: "Pas commencé",
         completed: false,
       },
-      { text: "Faire 111 séances de sport", status: "30/111", completed: false },
+      { text: "Faire 111 séances de sport", status: "34/111", completed: false },
     ],
   ],
 };
