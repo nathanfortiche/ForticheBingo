@@ -33,7 +33,7 @@ const BINGO_DATA = {
         status: "Pas commencé, encore en rééducation",
         completed: false,
       },
-      { text: "Voir 130 films", status: "35/130", completed: false },
+      { text: "Voir 130 films", status: "43/130", completed: false },
       {
         text: "Me faire tatouer",
         status: "J'ai une idée précise",
