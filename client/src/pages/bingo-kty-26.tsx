@@ -14,7 +14,7 @@ const BINGO_DATA = {
         status: "Pas commencé",
         completed: false,
       },
-      { text: "1 cours Kiplin/semaine", status: "4/52", completed: false },
+      { text: "25 cours Kiplin", status: "/25", completed: false },
       { text: "Tricoter 1 sock box", status: "3/12", completed: false },
     ],
     [
@@ -32,7 +32,7 @@ const BINGO_DATA = {
       },
     ],
     [
-      { text: "24 séances de piscine", status: "0/24", completed: false },
+      { text: "24 séances de piscine", status: "0/12", completed: false },
       { text: "Défi des 52 enveloppes", status: "267/1378", completed: false },
       {
         text: "Tricoter un pull pour mon anniversaire",
