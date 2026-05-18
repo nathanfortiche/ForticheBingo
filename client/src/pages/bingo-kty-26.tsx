@@ -8,14 +8,14 @@ const BINGO_DATA = {
   subtitle: "Bonne Chance ForticheKty !",
   grid: [
     [
-      { text: "Voir 200 films", status: "29/200", completed: false },
+      { text: "Voir 200 films", status: "100/200", completed: false },
       {
         text: "Repeindre murs de la cuisine",
         status: "Pas commencé",
         completed: false,
       },
-      { text: "1 cours Kiplin/semaine", status: "2/52", completed: false },
-      { text: "Tricoter 1 sock box", status: "1/12", completed: false },
+      { text: "1 cours Kiplin/semaine", status: "4/52", completed: false },
+      { text: "Tricoter 1 sock box", status: "3/12", completed: false },
     ],
     [
       {
@@ -23,8 +23,8 @@ const BINGO_DATA = {
         status: "Pas commencé",
         completed: false,
       },
-      { text: "Lire 99 livres", status: "7/99", completed: false },
-      { text: "Un séjour avec Hapimag", status: "0/1", completed: false },
+      { text: "Lire 99 livres", status: "35/99", completed: false },
+      { text: "Un séjour avec Hapimag", status: "Réservé", completed: false },
       {
         text: "Aller à 4 concerts/spectacles",
         status: "2/4",
@@ -33,7 +33,7 @@ const BINGO_DATA = {
     ],
     [
       { text: "24 séances de piscine", status: "0/24", completed: false },
-      { text: "Défi des 52 enveloppes", status: "37/1378", completed: false },
+      { text: "Défi des 52 enveloppes", status: "267/1378", completed: false },
       {
         text: "Tricoter un pull pour mon anniversaire",
         status: "Pas commencé",
@@ -51,15 +51,15 @@ const BINGO_DATA = {
         status: "0/3",
         completed: false,
       },
-      { text: "2300 km en vélo", status: "22/2300", completed: false },
+      { text: "2300 km en vélo", status: "339/2300", completed: false },
       {
         text: "Faire reconstruction du sein",
-        status: "RDV pris !",
-        completed: false,
+        status: "Opération faite !",
+        completed: true,
       },
       {
         text: "1 long week-end « ailleurs » par trimestre",
-        status: "0/4",
+        status: "1/4",
         completed: false,
       },
     ],
