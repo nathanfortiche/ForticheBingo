@@ -30,30 +30,30 @@ const BINGO_DATA = {
     [
       {
         text: "Tester le Kite Surf",
-        status: "Pas commencé, encore en rééducation",
+        status: "Pas commencé, je crois que je n'ai pas assez d'équilibre",
         completed: false,
       },
-      { text: "Voir 130 films", status: "48/130", completed: false },
+      { text: "Voir 130 films", status: "70/130", completed: false },
       {
         text: "Me faire tatouer",
-        status: "J'ai une idée précise",
+        status: "RDV pris !",
         completed: false,
       },
       {
         text: "100k TikTok + Insta cumulés",
-        status: "94k/100k",
+        status: "98,5k/100k",
         completed: false,
       },
     ],
     [
       {
         text: "Faire un muscle up",
-        status: "Impossible pour l'instant",
+        status: "Ça marche paaaas j'en ai marre",
         completed: false,
       },
       {
         text: "Créer 5 sites cools ",
-        status: "2 En cours de développement !",
+        status: "3 En cours de développement mais j'ose rien publier",
         completed: false,
       },
       {
@@ -63,7 +63,7 @@ const BINGO_DATA = {
       },
       {
         text: "Lancer 1 nouveau compte TikTok",
-        status: "Plusieurs idées",
+        status: "Un peu abandonné",
         completed: false,
       },
     ],
@@ -73,13 +73,17 @@ const BINGO_DATA = {
         status: "ENFIN LIBRE !",
         completed: true,
       },
-      { text: "Finir 12 livres", status: "5/12", completed: false },
+      { text: "Finir 12 livres", status: "7/12", completed: false },
       {
         text: "Collab avec un musée/média",
         status: "Pas commencé",
         completed: false,
       },
-      { text: "Faire 111 séances de sport", status: "49/111", completed: false },
+      {
+        text: "Faire 111 séances de sport",
+        status: "76/111",
+        completed: false,
+      },
     ],
   ],
 };
