@@ -9,24 +9,24 @@ const BINGO_DATA = {
   grid: [
     [
       { text: "Commencer une nouvelle langue", status: "Pas commencé", completed: false },
-      { text: "Faire 52 séances de sport", status: "7/52", completed: false },
+      { text: "Faire 52 séances de sport", status: "Je me suis mise à la danse", completed: true },
       { text: "Participer à 2 concours d'écriture", status: "0/2", completed: false },
-      { text: "Voyager avec ma mère", status: "Pas commencé", completed: false }
+      { text: "Voyager avec ma mère", status: "En cours", completed: false }
     ],
     [
-      { text: "Lire 35 livres", status: "12/35", completed: false },
+      { text: "Lire 35 livres", status: "21/35", completed: false },
       { text: "Passer le code de la route", status: "Pas commencé", completed: false },
-      { text: "Voir 130 films", status: "63/130", completed: false },
+      { text: "Voir 130 films", status: "103/130", completed: false },
       { text: "Organiser un week-end retraite d'écriture", status: "Pas commencé", completed: false }
     ],
     [
-      { text: "Commencer la photo argentique", status: "Pas commencé", completed: false },
+      { text: "Commencer la photo argentique", status: "Fait", completed: true },
       { text: "Changer de boulot", status: "Pas commencé", completed: false },
       { text: "Mener des interviews sur la mémoire familiale", status: "Pas commencé", completed: false },
-      { text: "Découvrir 24 nouveaux restos", status: "7/24", completed: false }
+      { text: "Découvrir 24 nouveaux restos", status: "Fait", completed: true }
     ],
     [
-      { text: "Faire 1 gros voyage", status: "Billets pris !", completed: false },
+      { text: "Faire 1 gros voyage", status: "Fait !", completed: true },
       { text: "Participer à des ateliers d'écriture", status: "3 faits", completed: true },
       { text: "Constituer un album photo", status: "Commencé", completed: false },
       { text: "Faire un plongeon dans le documentaire", status: "Plein de docus vus", completed: true }
