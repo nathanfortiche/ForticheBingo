@@ -149,7 +149,7 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
     >
       <div className="text-center mb-8">
         <h2 className="text-3xl font-medium text-gray-900 tracking-tight">
-          Bingo 2025
+          Bingo 2026
         </h2>
       </div>
 

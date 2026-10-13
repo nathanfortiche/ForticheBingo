@@ -27,6 +27,10 @@ export default function Home() {
   const [shuffleCount, setShuffleCount] = useState(0);
   const { toast } = useToast();
 
+  useEffect(() => {
+    document.title = "Mon Bingo 2026";
+  }, []);
+
   // Load saved state on mount
   useEffect(() => {
     const savedState = localStorage.getItem('bingoState');
@@ -61,7 +65,7 @@ export default function Home() {
       });
 
       const link = document.createElement("a");
-      link.download = "bingo-2024.png";
+      link.download = "bingo-2026.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
 
