@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import ResolutionForm from "@/components/resolution-form";
 import BingoCard from "@/components/bingo-card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import html2canvas from "html2canvas";
 import { Shuffle } from "lucide-react";
@@ -14,16 +16,20 @@ export type Resolution = {
 
 export type GridSize = "3x3" | "3x4" | "4x4" | "5x5";
 
+const DEFAULT_BINGO_TITLE = "Mon Bingo 2026";
+
 type SavedBingoState = {
   resolutions: Resolution[];
   gridSize: GridSize;
   showPreview: boolean;
+  title?: string;
 };
 
 export default function Home() {
   const [resolutions, setResolutions] = useState<Resolution[]>([]);
   const [gridSize, setGridSize] = useState<GridSize>("3x3");
   const [showPreview, setShowPreview] = useState(false);
+  const [title, setTitle] = useState(DEFAULT_BINGO_TITLE);
   const [shuffleCount, setShuffleCount] = useState(0);
   const { toast } = useToast();
 
@@ -35,10 +41,16 @@ export default function Home() {
   useEffect(() => {
     const savedState = localStorage.getItem('bingoState');
     if (savedState) {
-      const { resolutions: savedResolutions, gridSize: savedGridSize, showPreview: savedShowPreview } = JSON.parse(savedState) as SavedBingoState;
+      const {
+        resolutions: savedResolutions,
+        gridSize: savedGridSize,
+        showPreview: savedShowPreview,
+        title: savedTitle,
+      } = JSON.parse(savedState) as SavedBingoState;
       setResolutions(savedResolutions);
       setGridSize(savedGridSize);
       setShowPreview(savedShowPreview);
+      setTitle(savedTitle || DEFAULT_BINGO_TITLE);
     }
   }, []);
 
@@ -49,10 +61,11 @@ export default function Home() {
         resolutions,
         gridSize,
         showPreview,
+        title,
       };
       localStorage.setItem('bingoState', JSON.stringify(stateToSave));
     }
-  }, [resolutions, gridSize, showPreview]);
+  }, [resolutions, gridSize, showPreview, title]);
 
   const handleExport = async () => {
     const element = document.getElementById("bingo-card");
@@ -97,6 +110,7 @@ export default function Home() {
     setResolutions([]);
     setGridSize("3x3");
     setShowPreview(false);
+    setTitle(DEFAULT_BINGO_TITLE);
     setShuffleCount(0);
     toast({
       title: "Bingo réinitialisé",
@@ -121,15 +135,27 @@ export default function Home() {
             onSubmit={(data) => {
               setResolutions(data.resolutions);
               setGridSize(data.gridSize);
+              setTitle(DEFAULT_BINGO_TITLE);
               setShowPreview(true);
             }}
           />
         ) : (
           <div className="max-w-3xl mx-auto">
+            <div className="mb-4 space-y-2">
+              <Label htmlFor="bingo-title">Titre du bingo</Label>
+              <Input
+                id="bingo-title"
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+                placeholder={DEFAULT_BINGO_TITLE}
+                maxLength={80}
+              />
+            </div>
             <BingoCard
               key={shuffleCount}
               resolutions={resolutions}
               gridSize={gridSize}
+              title={title.trim() || DEFAULT_BINGO_TITLE}
               onShuffle={handleShuffle}
             />
             <div className="flex justify-center gap-4 mt-8">

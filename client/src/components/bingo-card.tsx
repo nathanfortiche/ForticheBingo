@@ -18,6 +18,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 type Props = {
   resolutions: Resolution[];
   gridSize: GridSize;
+  title: string;
   onShuffle?: () => void;
 };
 
@@ -44,7 +45,7 @@ const getGridDimensions = (size: GridSize) => {
   }
 };
 
-export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
+export default function BingoCard({ resolutions, gridSize, title, onShuffle }: Props) {
   const [shuffledResolutions, setShuffledResolutions] = useState<Resolution[]>([]);
   const [checkedCells, setCheckedCells] = useState<Set<string>>(new Set());
   const [statusMap, setStatusMap] = useState<StatusMap>({});
@@ -149,7 +150,7 @@ export default function BingoCard({ resolutions, gridSize, onShuffle }: Props) {
     >
       <div className="text-center mb-8">
         <h2 className="text-3xl font-medium text-gray-900 tracking-tight">
-          Bingo 2026
+          {title}
         </h2>
       </div>
 
