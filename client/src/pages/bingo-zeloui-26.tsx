@@ -8,30 +8,70 @@ const BINGO_DATA = {
   subtitle: "Bonne chance Zeloui !",
   grid: [
     [
-      { text: "Commencer une nouvelle langue", status: "Pas commencé", completed: false },
-      { text: "Faire 52 séances de sport", status: "Je me suis mise à la danse", completed: true },
-      { text: "Participer à 2 concours d'écriture", status: "0/2", completed: false },
-      { text: "Voyager avec ma mère", status: "En cours", completed: false }
+      {
+        text: "Commencer une nouvelle langue",
+        status: "Pas commencé",
+        completed: false,
+      },
+      {
+        text: "Faire 52 séances de sport",
+        status: "Je me suis mise à la danse",
+        completed: true,
+      },
+      {
+        text: "Participer à 2 concours d'écriture",
+        status: "0/2",
+        completed: false,
+      },
+      { text: "Voyager avec ma mère", status: "En cours", completed: false },
     ],
     [
       { text: "Lire 35 livres", status: "21/35", completed: false },
-      { text: "Passer le code de la route", status: "Pas commencé", completed: false },
+      {
+        text: "Passer le code de la route",
+        status: "Pas commencé",
+        completed: false,
+      },
       { text: "Voir 130 films", status: "103/130", completed: false },
-      { text: "Organiser un week-end retraite d'écriture", status: "Pas commencé", completed: false }
+      {
+        text: "Organiser un week-end retraite d'écriture",
+        status: "Pas commencé",
+        completed: false,
+      },
     ],
     [
-      { text: "Commencer la photo argentique", status: "Fait", completed: true },
+      {
+        text: "Commencer la photo argentique",
+        status: "Fait",
+        completed: true,
+      },
       { text: "Changer de boulot", status: "Pas commencé", completed: false },
-      { text: "Mener des interviews sur la mémoire familiale", status: "Pas commencé", completed: false },
-      { text: "Découvrir 24 nouveaux restos", status: "Fait", completed: true }
+      {
+        text: "Mener des interviews sur la mémoire familiale",
+        status: "Pas commencé",
+        completed: false,
+      },
+      { text: "Découvrir 24 nouveaux restos", status: "Fait", completed: true },
     ],
     [
       { text: "Faire 1 gros voyage", status: "Fait !", completed: true },
-      { text: "Participer à des ateliers d'écriture", status: "3 faits", completed: true },
-      { text: "Constituer un album photo", status: "Commencé", completed: false },
-      { text: "Faire un plongeon dans le documentaire", status: "Plein de docus vus", completed: true }
-    ]
-  ]
+      {
+        text: "Participer à des ateliers d'écriture",
+        status: "3 faits",
+        completed: true,
+      },
+      {
+        text: "Constituer un album photo",
+        status: "Commencé",
+        completed: false,
+      },
+      {
+        text: "Faire un plongeon dans le documentaire",
+        status: "Plein de docus vus",
+        completed: true,
+      },
+    ],
+  ],
 };
 
 export default function BingoZeloui26() {
@@ -51,7 +91,10 @@ export default function BingoZeloui26() {
           </p>
         </div>
 
-        <div id="bingo-card" className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12">
+        <div
+          id="bingo-card"
+          className="bg-white rounded-xl shadow-xl p-3 md:p-8 max-w-3xl mx-auto mb-8 md:mb-12"
+        >
           <div className="grid grid-cols-4 gap-1 md:gap-3 auto-rows-fr">
             {BINGO_DATA.grid.flat().map((item, index) => (
               <motion.div
@@ -64,11 +107,13 @@ export default function BingoZeloui26() {
                   ease: "easeOut",
                 }}
               >
-                <Card 
+                <Card
                   className={`relative h-full p-1.5 md:p-4 min-h-[70px] sm:min-h-[90px] md:min-h-[120px] flex flex-col items-center justify-center text-center transition-all duration-200 border-gray-100
-                    ${item.completed 
-                      ? 'bg-green-50 border-green-200' 
-                      : 'hover:bg-gray-50/50'}`}
+                    ${
+                      item.completed
+                        ? "bg-green-50 border-green-200"
+                        : "hover:bg-gray-50/50"
+                    }`}
                 >
                   {item.completed && (
                     <div className="absolute top-1 right-1 md:top-2 md:right-2">
@@ -86,7 +131,6 @@ export default function BingoZeloui26() {
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );
